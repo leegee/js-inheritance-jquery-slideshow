@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Lee
+
+# THANKS
+
+    HTML5Boilerplate
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, ECMA Script
+    Normalize.css, jQuery, Modernizr
+    Require.js
