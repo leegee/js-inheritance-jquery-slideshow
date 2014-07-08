@@ -24,29 +24,12 @@ require.config({
 });	
 
 
-require( ["Ls", "Word2ImgSlideshow", "jquery"],
-  function(Ls, Word2ImgSlideshow ) {
-
-	var main = function (imagePaths) {
-		jQuery(document).ready( function () {	
-			var Words2ImgPaths = [];
-			for (var i=0; i < imagePaths.length; i++){
-				var match = imagePaths[i].toLowerCase().match(/(\w+?)\.\w+$/);
-				if (match && match[1]){
-					Words2ImgPaths[ match[1] ] = imagePaths[i];
-				}
-			}
-
-			new Word2ImgSlideshow ({ 
-				el 				: '.slideshow',
-				Words2ImgPaths	: Words2ImgPaths
-			}).setupControls();
+require( ["Word2ImgSlideshow", "jquery"], function (Word2ImgSlideshow) {
+	jQuery(document).ready( function () {
+		new Word2ImgSlideshow ({ 
+			el : '.slideshow',
+			uri: 'img'
 		});
-	};
-
-	new Ls({ 
-		uri: 'img',
-		next: main
 	});
 });
 

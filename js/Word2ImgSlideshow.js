@@ -1,11 +1,32 @@
 'use strict';
 
-define(['Slideshow', 'Word2ImgSlide'], function (Slideshow, Word2ImgSlide) {
+define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide, Ls) {
 
 	var Word2ImgSlideshow = function (args) {
 		console.log('Word2ImgSlideshow.constructor enter ', arguments);
-		Slideshow.call(this, args);
-		console.log('Word2ImgSlideshow.constructor leave ', this);
+		
+		var self = this;
+		args.Words2ImgPaths = [];
+		
+		new Ls({ 
+			uri: args.uri,
+		 	next: function (imagePaths) {
+			for (var i=0; i < imagePaths.length; i++){
+				// Get the name before the extension:
+				var match = imagePaths[i].toLowerCase().match(/(\w+?)\.\w+$/);
+				if (match && match[1]){
+					args.Words2ImgPaths[ match[1] ] = imagePaths[i];
+				}
+			}
+
+			if ( args.Words2ImgPaths.length == 0 ){
+				console.warn('No images found!', this);
+			}
+			
+			Slideshow.call(self, args);
+			self.setupControls();
+			console.log('Word2ImgSlideshow.constructor done ', self);
+		}});
 	};
 
 	Word2ImgSlideshow.prototype 						= Object.create( Slideshow.prototype );
