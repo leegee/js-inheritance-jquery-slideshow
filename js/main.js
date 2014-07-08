@@ -25,7 +25,7 @@ require.config({
 
 
 require( ["Ls", "Word2ImgSlideshow", "jquery"],
-  function(Ls, Word2ImgSlideshow, Word2ImgSlide ) {
+  function(Ls, Word2ImgSlideshow ) {
 
 	var main = function (imagePaths) {
 		jQuery(document).ready( function () {	
