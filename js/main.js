@@ -3,7 +3,7 @@
 if (typeof console === 'undefined'){
 	console = {};
 	console.log = console.warn = console.debug = console.info 
-		= console.dir = function () {};
+		= console.dir = console.trace = function () {};
 }
 
 require.config({
