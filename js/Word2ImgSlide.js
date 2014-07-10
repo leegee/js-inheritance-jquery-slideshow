@@ -5,8 +5,8 @@ define(['Slide'], function (Slide) {
 	var Word2ImgSlide = function (properties) {
 		console.log('Word2ImgSlide.constructor enter ', arguments);
 		Slide.call(this, properties);
-	    this.el.html( 
-	    	this.walkDOM( this.el.get(0) ) 
+	    this.el.html(
+	    	this.walkDOM( this.el.get(0) )
 	    );
 	    console.log('Word2ImgSlide.constructor leave');
 	};
@@ -27,10 +27,10 @@ define(['Slide'], function (Slide) {
 	    if (inputNode.nodeType == 3) { // text node
 	        if (1 || nonWhitespaceMatcher.test(node.nodeValue)) {
 	            var parentNode = inputNode.parentNode;
-	            parentNode.replaceChild( 
+	            parentNode.replaceChild(
 	            	this._textNode2NodeArray( inputNode, rvNodes ),
 	            	inputNode
-	            ); 
+	            );
 	        }
 	    } else {
 	        for (var i = 0, len = inputNode.childNodes.length; i < len; ++i) {
@@ -65,14 +65,14 @@ define(['Slide'], function (Slide) {
 						rvNode.appendChild(document.createTextNode(m[2]) )
 					}
 				}
-			} 
+			}
 			else {
 				rvNode.appendChild( document.createTextNode( word ) );
 			}
-			
-			rvNode.appendChild( 
+
+			rvNode.appendChild(
 				document.createTextNode(' ')
-			); 
+			);
 		}
 		// Return one or more textNodes
 		return rvNode;
