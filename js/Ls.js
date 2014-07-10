@@ -5,17 +5,21 @@ define(['jquery'], function (jQuery) {
 		@param next [function] - callback
 	*/
 	var Ls = function (properties) {
+        if (typeof properties !== 'object'){
+            throw new TypeError('Ls requires an object as sole parameter.')
+        }
 		var self = this;
+
 		this.uri = properties.uri;
 		this.re = properties.re || /^.+\.(png|jpg|gif)$/;
 		this.next = properties.next || function () {};
 		this.uris = [];
 
 		if (! this.hasOwnProperty('uri')){
-			throw new TypeError('Ls requires a uri argument.')
+			throw new TypeError('Ls requires a uri in its properties argument.')
 		}
 
-		$.get( this.uri, function (html) {
+		jQuery.get( this.uri, function (html) {
 			jQuery('<html/>', { html: html })
 				.find('a')
 				.each( function(i,el){
@@ -25,6 +29,7 @@ define(['jquery'], function (jQuery) {
 					}
 				}
 			);
+
 			self.next( self.uris );
 		});
 	}
