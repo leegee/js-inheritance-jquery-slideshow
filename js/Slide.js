@@ -39,7 +39,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	Slide.prototype.defaults = {
 		el 			: null, 	// HTML element that is the slide
 		index		: null,		// Index within the slideshow
-		onChange 	: function () {},
+		change 	: function () {},
 		fx_speeds_default : 5000,
 		transitions : {
 			show : {
@@ -73,22 +73,22 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 
 	Slide.prototype.show = function () {
 		this.el.transition( this.transitions.show );
-		this.onChange.call(this);
+		this.change.call(this);
 	}
 
 	Slide.prototype.hide = function () {
 		this.el.transition( this.transitions.hide );
-	    this.onChange.call(this);
+	    this.change.call(this);
 	}
 
 	Slide.prototype.out = function () {
 		this.el.transition( this.transitions.out );
-		this.onChange.call(this);
+		this.change.call(this);
 	}
 
 	Slide.prototype.in = function () {
 		this.el.transition( this.transitions.in );
-	    this.onChange.call(this);
+	    this.change.call(this);
 	}
 
 	return Slide;

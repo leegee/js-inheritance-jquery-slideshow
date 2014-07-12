@@ -26,7 +26,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 				self.addSlide({
 					el 		: el,
 					index 	: i,
-					onChange: function () { /** **/ }
+					change: function () { /** **/ }
 				})
 			);
 			console.debug('Slideshow.addSlides loaded %d', i);

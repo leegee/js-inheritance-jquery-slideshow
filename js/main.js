@@ -2,7 +2,7 @@
 
 if (typeof console === 'undefined'){
 	console = {};
-	console.log = console.warn = console.debug = console.info 
+	console.log = console.warn = console.debug = console.info
 		= console.dir = console.trace = function () {};
 }
 
@@ -21,12 +21,12 @@ require.config({
         "Word2ImgSlide": 	 "Word2ImgSlide"
 	},
 	waitSeconds: 1
-});	
+});
 
 
 require( ["Word2ImgSlideshow", "jquery"], function (Word2ImgSlideshow) {
 	jQuery(document).ready( function () {
-		new Word2ImgSlideshow ({ 
+		new Word2ImgSlideshow ({
 			el : '.slideshow',
 			uri: 'img'
 		});
