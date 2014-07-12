@@ -43,7 +43,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;
-		self.ctrls = jQuery('<div id="controls"><div id="left"></div><div id="right"></div></div>');
+        self.ctrls = jQuery('<div id="controls"><div id="left"></div><div id="right"></div></div>');
 		self.ctrls.appendTo( self.el );
 		jQuery('#left').on('click', function (e) {
 			self.change('previous');

@@ -2,10 +2,11 @@
 
 define( ["Word2ImgSlideshow", "jquery"], function (Word2ImgSlideshow) {
 	jQuery(document).ready( function () {
-		new Word2ImgSlideshow ({
+		var o = new Word2ImgSlideshow ({
 			el : '.slideshow',
 			uri: 'img'
 		});
+        o.setupControls();
 	});
 });
 

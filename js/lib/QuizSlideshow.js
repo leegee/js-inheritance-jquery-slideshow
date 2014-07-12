@@ -13,7 +13,6 @@ define(['Word2ImgSlideshow', 'QuizSlide', 'Ls'], function (Word2ImgSlideshow, Qu
 		 	next: function (imagePaths) {
                 self.setWords2ImagePaths(imagePaths, properties);
     			Word2ImgSlideshow.call(self, properties);
-    			self.setupControls();
     		}
         });
 

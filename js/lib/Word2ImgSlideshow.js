@@ -13,7 +13,6 @@ define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide,
                 console.group('Ls.next enter');
     			self.setWords2ImagePaths(imagePaths, properties);
     			Slideshow.call(self, properties);
-    			self.setupControls();
                 console.groupEnd('Ls.next leave');
             }
         });
