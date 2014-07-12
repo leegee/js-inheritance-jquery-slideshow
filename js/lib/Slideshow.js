@@ -21,22 +21,21 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	Slideshow.prototype.addSlides = function () {
 		var self = this;
-		this.el.children().each( function (i, el) {
+		this.el.children().each( function (index, el) {
 			self.slides.push(
 				self.addSlide({
-					el 		: el,
-					index 	: i,
-					afterChange: function () { /** **/ }
-				})
+                    el: el,
+                    index: index
+                })
 			);
-			console.debug('Slideshow.addSlides loaded %d', i);
+			console.debug('Slideshow.addSlides loaded %d', index);
 		});
-
-        this.change(0);
+        this.slides[ this.currentIndex ].in( this.direction );
+        this.slides[ this.currentIndex ].show();
 	};
 
-	Slideshow.prototype.addSlide = function (args) {
-		var slide = new Slide(args);
+	Slideshow.prototype.addSlide = function (properties) {
+		var slide = new Slide(properties);
 		slide.onAdd();
 		return slide;
 	};
@@ -79,8 +78,6 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	Slideshow.prototype.change = function (direction) {
         console.log('Slideshow.change enter for slide #%d, direction %d', this.currentIndex, direction);
-		this.slides[ this.currentIndex ].out();
-		this.slides[ this.currentIndex ].hide();
 
 		if (direction=='next'){
             this.direction = 1;
@@ -97,26 +94,36 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
         var nextIndex  = this.currentIndex + this.direction;
 		if (nextIndex == this.slides.length){
             console.log('Slideshow.change set currentIndex to 0');
-			this.currentIndex = 0;
+			nextIndex = 0;
 		}
 		else if (nextIndex < 0){
-			this.currentIndex = this.slides.length - 1;
+			nextIndex = this.slides.length - 1;
             console.log('Slideshow.change setting currentIndex to the end');
 		}
-        else {
-            this.currentIndex = nextIndex;
-        }
 
-        if (this.currentIndex == 0){
-            this.beforeShowFirst();
-        } else if (this.currentIndex == this.slides.length -1){
-            this.beforeShowFinal();
-        }
+        var possNextIndex = this.nextIndexBeforeChange(nextIndex);
+        if (possNextIndex !== this.currentIndex){
+            this.slides[ this.currentIndex ].out();
+            this.slides[ this.currentIndex ].hide();
 
-		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
-		this.slides[ this.currentIndex ].in( this.direction );
-		this.slides[ this.currentIndex ].show();
+            this.currentIndex = possNextIndex;
+            if (this.currentIndex == 0){
+                this.beforeShowFirst();
+            } else if (this.currentIndex == this.slides.length -1){
+                this.beforeShowFinal();
+            }
+
+    		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
+    		this.slides[ this.currentIndex ].in( this.direction );
+    		this.slides[ this.currentIndex ].show();
+        }
 	};
+
+    Slideshow.prototype.nextIndexBeforeChange = function (nextIndex) {
+        return nextIndex;
+    };
+
+    Slideshow.prototype.afterChange = function () {};
 
     Slideshow.prototype.beforeShowFirst = function () {};
     Slideshow.prototype.beforeShowFinal = function () {};

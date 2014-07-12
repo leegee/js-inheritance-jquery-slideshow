@@ -72,7 +72,7 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
         }
         // Return one or more textNodes
         return rvNode;
-    }
+    };
 
 	return QuizSlide;
 });

@@ -42,9 +42,8 @@ define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide,
     };
 
 	Word2ImgSlideshow.prototype.addSlide = function (args) {
-		var slide = new Word2ImgSlide (jQuery.extend(args, {
-			Words2ImgPaths : this.Words2ImgPaths
-		}));
+        args.Words2ImgPaths = this.Words2ImgPaths;
+		var slide = new Word2ImgSlide (args);
 		slide.onAdd();
 		return slide;
 	};

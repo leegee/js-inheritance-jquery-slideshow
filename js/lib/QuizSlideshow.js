@@ -21,6 +21,18 @@ define(['Word2ImgSlideshow', 'QuizSlide', 'Ls'], function (Word2ImgSlideshow, Qu
 
 	QuizSlideshow.prototype 			= Object.create( Word2ImgSlideshow.prototype );
 	QuizSlideshow.prototype.constructor = QuizSlideshow;
+    QuizSlideshow.prototype.beforeShowFirst = function () {};
+
+    // Stop wrapping
+    QuizSlideshow.prototype.nextIndexBeforeChange = function (nextIndex) {
+        console.info( this.currentIndex, this.slides.length -1, nextIndex);
+        if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
+            return 0;
+        } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
+            return this.slides.length -1;
+        }
+        return nextIndex;
+    };
 
 	return QuizSlideshow;
 });
