@@ -31,6 +31,11 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
         } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
             return this.slides.length -1;
         }
+
+        if (typeof this.controls !== 'undefined'){
+            this.controls.left.show();
+            this.controls.right.show();
+        }
         return nextIndex;
     };
 
@@ -57,7 +62,7 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             'You gave '+(totals.total)+' answers to '+
             totals.slides+' questions'+(totals.slides==1?'':'s')+':<br/>'+
             (totals.passed) +' '+ (totals.passed==1? 'was':'were') + ' correct,<br/>'+
-            (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect,<br/>'
+            (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect.'
          )
     };
 

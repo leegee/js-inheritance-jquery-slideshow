@@ -48,9 +48,12 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;
-        self.ctrls = jQuery('<nav id="controls"><div id="left"></div><div id="right"></div></nav>');
-		self.ctrls.appendTo( self.el );
-		jQuery('#left').on('click', function (e) {
+        self.controls = {};
+        self.controls.el = jQuery('<nav id="controls"><div id="left"></div><div id="right"></div></nav>');
+		self.controls.el.appendTo( self.el );
+		self.controls.left  = jQuery('#left');
+        self.controls.right = jQuery('#right');
+        jQuery('#left').on('click', function (e) {
 			self.change('previous');
 		});
 		jQuery('#right').on('click', function (e) {
