@@ -1,35 +1,43 @@
 'use strict';
 
-if (typeof console === 'undefined'){
-	console = {};
-	console.log = console.warn = console.debug = console.info
-		= console.dir = console.trace = function () {};
-}
+(function() {
+    var method;
+    var noop = function () {};
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = (window.console = window.console || {});
+
+    while (length--) {
+        method = methods[length];
+
+        // Only stub undefined methods.
+        if (!console[method]) {
+            console[method] = noop;
+        }
+    }
+}());
 
 require.config({
-	baseUrl: "js/",
-	paths: {
-		"Modernizer": 		 "vendor/modernizr-2.6.2.min",
-        "jquery": 			 "vendor/jquery-1.10.2.min",
-        "jquery-transit": 	 "vendor/jquery.transit.min",
-        "Plugins": 			 "plugins",
-        "Ls": 				 "Ls",
-        "Base": 	 		 "Base",
-        "Slideshow": 	 	 "Slideshow",
-        "Word2ImgSlideshow": "Word2ImgSlideshow",
-        "Slide": 		 	 "Slide",
-        "Word2ImgSlide": 	 "Word2ImgSlide"
-	},
-	waitSeconds: 1
+    baseUrl: "js/",
+    paths: {
+        "Modernizer":        "vendor/modernizr-2.6.2.min",
+        "jquery":            "vendor/jquery-1.10.2.min",
+        "jquery-transit":    "vendor/jquery.transit.min",
+        "Ls":                "lib/Ls",
+        "Base":              "lib/Base",
+        "Slideshow":         "lib/Slideshow",
+        "Slide":             "lib/Slide",
+        "Wod2ImgSlideshow":  "lib/Wod2ImgSlideshow",
+        "Wod2ImgSlide":      "lib/Wod2ImgSlide",
+        "QuizSlideshow":     "lib/QuizSlideshow",
+        "QuizSlide":         "lib/QuizSlide"
+    },
+    waitSeconds: 1
 });
 
-
-require( ["Word2ImgSlideshow", "jquery"], function (Word2ImgSlideshow) {
-	jQuery(document).ready( function () {
-		new Word2ImgSlideshow ({
-			el : '.slideshow',
-			uri: 'img'
-		});
-	});
-});
 
