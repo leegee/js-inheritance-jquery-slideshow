@@ -11,8 +11,10 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 
 		jQuery.fx.speeds._default = this.fx_speeds_default;
 
-        this.isFirst = this.el.attr( this.firstSlideAttr ) && this.el.attr( this.firstSlideAttr ) === this.firstSlideValue;
-        this.isFinal = this.el.attr( this.finalSlideAttr ) && this.el.attr( this.finalSlideAttr ) === this.finalSlideValue;
+        this._isFirst = null;
+        this._isFinal = null;
+        this.isFirst( this.el.attr( this.firstSlideAttr ) && this.el.attr( this.firstSlideAttr ) === this.firstSlideValue );
+        this.isFinal( this.el.attr( this.finalSlideAttr ) && this.el.attr( this.finalSlideAttr ) === this.finalSlideValue );
 
         console.groupEnd('Slide.constructor leave ', this);
 	};
@@ -22,10 +24,8 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	Slide.prototype.defaults = {
 		el 			    : null, 	// HTML element that is the slide
 		index		    : null,		// Index within the slideshow
-        isFirst         : null,     // Set dynamically based on firstSlideAttr/firstSlideValue
         firstSlideValue : 'first',  // Expect this value in firstSlideAttr
         firstSlideAttr  : 'id',     // Expect this attribute to cf with firstSlideValue to set isFrist
-        isFinal         : null,     // Set dynamically based on finalSlideAttr/finalSlideValue
         finalSlideValue : 'final',  // Expect this value in finalSlideAttr
         finalSlideAttr  : 'id',     // Expect this attribute to cf with finalSlideValue to set isFrist
 		beforeChange 	: function () {},
@@ -68,6 +68,20 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 			}
 		}
 	};
+
+    Slide.prototype.isFirst = function (bool) {
+        if (typeof bool === 'boolean'){
+            this._isFirst = bool;
+        }
+        return this._isFirst;
+    };
+
+    Slide.prototype.isFinal  = function (bool) {
+        if (typeof bool === 'boolean'){
+            this._isFinal = bool;
+        }
+        return this._isFinal;
+    };
 
     Slide.prototype.onAdd = function () {
         // Store the clone's attributes, including style:

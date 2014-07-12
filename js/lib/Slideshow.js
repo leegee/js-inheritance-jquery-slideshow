@@ -31,6 +31,11 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 			);
 			console.debug('Slideshow.addSlides loaded %d', i);
 		});
+
+console.log( this.slides[0])
+        this.slides[0].isFirst(true);
+        this.slides[ this.slides.length -1 ].isFinal(true);
+
 		this.slides[ this.startIndex ].in( this.direction );
 		this.slides[ this.startIndex ].show();
 	};
@@ -84,7 +89,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		this.slides[ this.currentIndex ].hide();
 
 		if (directionOrIndex=='next'){
-			if (this.slides[ this.currentIndex ].isFinal){
+			if (this.slides[ this.currentIndex ].isFinal()){
                 console.log('Slideshow.change not showing next, Slide.isFinal');
             } else {
                 this.direction = 1;
@@ -93,7 +98,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
             }
 		}
 		else if (directionOrIndex=='previous'){
-            if (this.slides[ this.currentIndex ].isFirst){
+            if (this.slides[ this.currentIndex ].isFirst() ){
                 console.log('Slideshow.change not showing previous, Slide.isFirst');
             } else {
     			this.direction = -1;
@@ -108,7 +113,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 		if (this.currentIndex >= this.slides.length){
             var nextIndex = 0;
-            if (this.slides[ nextIndex ].isFinal){
+            if (this.slides[ nextIndex ].isFinal()){
                 console.log('Slideshow.change not setting currentIndex to 0, Slide.isFinal');
             } else {
                 console.log('Slideshow.change set currentIndex to 0');
@@ -117,7 +122,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		}
 		else if (this.currentIndex < 0){
             var nextIndex = this.slides.length - 1;
-            if (this.slides[ nextIndex ].isFirst){
+            if (this.slides[ nextIndex ].isFirst()){
                console.log('Slideshow.change not setting currentIndex to the end, Slide.isFinal');
             } else {
     			this.currentIndex = nextIndex;
