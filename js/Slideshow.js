@@ -3,16 +3,16 @@
 define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	var Slideshow = function (args) {
-		console.log('Slideshow.constructor enter ', arguments);
+		console.group('Slideshow.constructor enter ', arguments);
 		Base.call(this, args);
 		this.addSlides();
-		console.log('Slideshow.constructor leave ', this);
+		console.groupEnd('Slideshow.constructor leave ', this);
 	};
 
 	Slideshow.prototype = Object.create( Base.prototype	 );
 	Slideshow.prototype.constructor = Slideshow;
 	Slideshow.prototype.defaults = {
-		el 				: null,	// HTML element that is the slideshow 
+		el 				: null,	// HTML element that is the slideshow
 		direction		: 1,
 		currentIndex 	: 0,
 		startIndex 		: 0,
@@ -22,9 +22,9 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 	Slideshow.prototype.addSlides = function () {
 		var self = this;
 		this.el.children().each( function (i, el) {
-			self.slides.push( 	
+			self.slides.push(
 				self.addSlide({
-					el 		: el, 
+					el 		: el,
 					index 	: i,
 					onChange: function () { /** **/ }
 				})
@@ -85,7 +85,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		if (directionOrIndex=='next'){
 			this.direction = 1;
 			this.currentIndex += this.direction;
-		} 
+		}
 		else if (directionOrIndex=='previous'){
 			this.direction = -1;
 			this.currentIndex += this.direction;
@@ -103,7 +103,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		}
 
 		console.log('Slideshow.change slide #%d in', this.currentIndex);
-		
+
 		this.slides[ this.currentIndex ].in( this.direction );
 		this.slides[ this.currentIndex ].show();
 	}

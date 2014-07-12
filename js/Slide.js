@@ -2,14 +2,14 @@
 
 define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	var Slide = function (args) {
-		console.log('Slide.constructor enter ', arguments);
+		console.group('Slide.constructor enter ', arguments);
 		var self = this;
 		Base.call(this, args);
 		if ( ! this.el instanceof jQuery){
 			throw new TypeError('Expected arguments[el] to be an instanceof jQuery');
 		}
 
-		jQuery.fx.speeds._default = this.fx_speeds_default; 
+		jQuery.fx.speeds._default = this.fx_speeds_default;
 
 		this.onAdd = function () {
 			// Store the clone's attributes, including style:
@@ -31,13 +31,13 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 			self.el.addClass('slide');
 			self.el.attr('data-slide', self.index );
 		};
-		console.log('Slide.constructor leave ', this);
+		console.groupEnd('Slide.constructor leave ', this);
 	};
 
 	Slide.prototype = Object.create( Base.prototype );
 	Slide.prototype.constructor = Slide; // .prototype.constructor;
 	Slide.prototype.defaults = {
-		el 			: null, 	// HTML element that is the slide 
+		el 			: null, 	// HTML element that is the slide
 		index		: null,		// Index within the slideshow
 		onChange 	: function () {},
 		fx_speeds_default : 5000,

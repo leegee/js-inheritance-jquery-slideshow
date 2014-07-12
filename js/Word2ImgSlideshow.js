@@ -3,12 +3,12 @@
 define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide, Ls) {
 
 	var Word2ImgSlideshow = function (args) {
-		console.log('Word2ImgSlideshow.constructor enter ', arguments);
-		
+		console.group('Word2ImgSlideshow.constructor enter ', arguments);
+
 		var self = this;
 		args.Words2ImgPaths = [];
-		
-		new Ls({ 
+
+		new Ls({
 			uri: args.uri,
 		 	next: function (imagePaths) {
 			for (var i=0; i < imagePaths.length; i++){
@@ -22,10 +22,10 @@ define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide,
 			if ( args.Words2ImgPaths.length == 0 ){
 				console.warn('No images found!', this);
 			}
-			
+
 			Slideshow.call(self, args);
 			self.setupControls();
-			console.log('Word2ImgSlideshow.constructor done ', self);
+			console.groupEnd('Word2ImgSlideshow.constructor done ', self);
 		}});
 	};
 

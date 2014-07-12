@@ -3,12 +3,12 @@
 define(['Slide'], function (Slide) {
 
 	var Word2ImgSlide = function (properties) {
-		console.log('Word2ImgSlide.constructor enter ', arguments);
+		console.group('Word2ImgSlide.constructor enter ', arguments);
 		Slide.call(this, properties);
 	    this.el.html(
 	    	this.walkDOM( this.el.get(0) )
 	    );
-	    console.log('Word2ImgSlide.constructor leave');
+	    console.groupEnd('Word2ImgSlide.constructor leave');
 	};
 
 	Word2ImgSlide.prototype = Object.create( Slide.prototype );
