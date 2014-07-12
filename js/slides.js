@@ -6,6 +6,5 @@ define( ["Slideshow", "jquery"], function (Slideshow, jQuery) {
 			el : '.slideshow',
 			uri: 'img'
 		});
-        o.setupControls();
 	});
 });

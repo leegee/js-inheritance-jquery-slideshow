@@ -6,7 +6,6 @@ define( ["Word2ImgSlideshow", "jquery"], function (Word2ImgSlideshow) {
 			el : '.slideshow',
 			uri: 'img'
 		});
-        o.setupControls();
 	});
 });
 

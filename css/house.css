@@ -1,5 +1,5 @@
 .slideshow {
-	display: block; 
+	display: block;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -8,10 +8,14 @@
 	overflow: none;
 	text-align: center;
 	clear: both;
-	font-size: 32pt;
     white-space: nowrap;
     background: black;
     overflow: hidden;
+}
+
+.slideshow,
+.slideshow input {
+    font-size: 32pt;
 }
 
 .slideshow .slide {
@@ -73,3 +77,19 @@
 		margin-left:0.3em;
 	}
 
+.slideshow h1 {
+    font-size: 24pt;
+}
+
+.slideshow fieldset {
+    margin: 2em;
+    text-align: middle;
+    width: auto;
+    max-width: 800px;
+    position: relative;
+    margin-left: -400px;
+    left: 50%;
+}
+.slideshow fieldset p {
+    text-align: left;
+}

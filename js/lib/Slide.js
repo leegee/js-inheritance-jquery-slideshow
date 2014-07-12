@@ -73,6 +73,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
                 this.el.removeAttr( attributes[i].nodeName );
             }
         }
+        wrapper.attr('id', this.el.attr('id'));
 
         var clone = this.el.clone(true,true); // event and data deep copy
         wrapper.append( clone );

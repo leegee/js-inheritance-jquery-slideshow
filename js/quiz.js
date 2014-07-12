@@ -6,6 +6,5 @@ define( ["QuizSlideshow", "jquery"], function (QuizSlideshow) {
 			el : '.slideshow',
 			uri: 'img'
 		});
-        o.setupControls();
 	});
 });

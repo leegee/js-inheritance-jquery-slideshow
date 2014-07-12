@@ -1,6 +1,7 @@
 'use strict';
 
-define(['Word2ImgSlideshow', 'QuizSlide', 'Ls'], function (Word2ImgSlideshow, QuizSlide, Ls) {
+define([ 'Word2ImgSlideshow', 'QuizSlide', 'Ls', 'jquery', 'jquery-icheck'],
+function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	var QuizSlideshow = function (properties) {
 		console.group('QuizSlideshow.constructor enter ', arguments);
@@ -32,6 +33,12 @@ define(['Word2ImgSlideshow', 'QuizSlide', 'Ls'], function (Word2ImgSlideshow, Qu
             return this.slides.length -1;
         }
         return nextIndex;
+    };
+
+    QuizSlideshow.prototype.beforeShowFinal = function () {
+        this.slides.forEach( function (slide, index){
+            console.info( index, slide )
+        });
     };
 
 	return QuizSlideshow;

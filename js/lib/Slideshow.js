@@ -32,6 +32,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		});
         this.slides[ this.currentIndex ].in( this.direction );
         this.slides[ this.currentIndex ].show();
+        this.setupControls();
 	};
 
 	Slideshow.prototype.addSlide = function (properties) {
@@ -42,7 +43,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;
-        self.ctrls = jQuery('<div id="controls"><div id="left"></div><div id="right"></div></div>');
+        self.ctrls = jQuery('<nav id="controls"><div id="left"></div><div id="right"></div></nav>');
 		self.ctrls.appendTo( self.el );
 		jQuery('#left').on('click', function (e) {
 			self.change('previous');
