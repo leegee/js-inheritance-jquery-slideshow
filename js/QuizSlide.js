@@ -3,12 +3,12 @@
 define(['Word2ImgSlide'], function (Word2ImgSlide) {
 
 	var QuizSlide = function (properties) {
-		console.log('QuizSlide.constructor enter ', arguments);
+		console.group('QuizSlide.constructor enter ', arguments);
 		Word2ImgSlide.call(this, properties);
 	    // this.el.html(
 	    // 	this.walkDOM( this.el.get(0) )
 	    // );
-	    console.log('QuizSlide.constructor leave');
+	    console.groupEnd('QuizSlide.constructor leave');
 	};
 
 	QuizSlide.prototype = Object.create( Word2ImgSlide.prototype );
@@ -19,7 +19,7 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
 			throw new TypeError('arguments[0] should be an instanceof Object');
 		}
         Word2ImgSlide.call(this, args);
-		console.debug('QuizSlide.addSlide [%d]', this.startIndex);
+		console.log('QuizSlide.addSlide [%d]', this.startIndex);
 	};
 
     // TODO: Currently reates a few extra nodes
