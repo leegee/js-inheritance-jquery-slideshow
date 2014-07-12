@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide, Ls) {
+define(['Slideshow', 'Ls'], function (Slideshow, Ls) {
 	var Word2ImgSlideshow = function (properties) {
 		console.group('Word2ImgSlideshow.constructor enter ', arguments);
 
@@ -41,11 +41,9 @@ define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide,
         console.groupEnd('Word2ImgSlideshow.setWords2ImagePaths leave');
     };
 
-	Word2ImgSlideshow.prototype.addSlide = function (args) {
-        args.Words2ImgPaths = this.Words2ImgPaths;
-		var slide = new Word2ImgSlide (args);
-		slide.onAdd();
-		return slide;
+	Word2ImgSlideshow.prototype.addSlide = function (properties) {
+        properties.Words2ImgPaths = this.Words2ImgPaths;
+        return Slideshow.prototype.addSlide.call(this, properties);
 	};
 
 	return Word2ImgSlideshow;

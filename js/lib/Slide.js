@@ -62,6 +62,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	};
 
     Slide.prototype.onAdd = function () {
+        console.info(this)
         this.el.hide();
 
         // Store the clone's attributes, including style:

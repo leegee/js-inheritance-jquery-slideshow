@@ -63,5 +63,11 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
         return rvNode;
     };
 
+    QuizSlide.prototype.getScore = function () {
+        this.el.find('input').forEach( function (){
+            console.info( this, arguments );
+        })
+    };
+
 	return QuizSlide;
 });

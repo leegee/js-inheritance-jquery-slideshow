@@ -1,11 +1,15 @@
 'use strict';
 
-define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
+define(['Base', 'jquery'], function (Base, jQuery) {
 
 	var Slideshow = function (args) {
 		console.group('Slideshow.constructor enter ', arguments);
 		Base.call(this, args);
-		this.addSlides();
+
+        if (this.slideModule === 'undefined'){
+            throw new TypeError ('this.slideModule must be an object (AMD "Slide" module)');
+        }
+        this.addSlides();
 		console.groupEnd('Slideshow.constructor leave ', this);
 	};
 
@@ -16,6 +20,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		direction		: 1,
 		currentIndex 	: 0,
 		startIndex 		: 0,
+        slideModule     : null,
 		slides 			: []	// Array[<Slide>]
 	};
 
@@ -35,11 +40,11 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
         this.setupControls();
 	};
 
-	Slideshow.prototype.addSlide = function (properties) {
-		var slide = new Slide(properties);
-		slide.onAdd();
-		return slide;
-	};
+    Slideshow.prototype.addSlide = function (properties) {
+        var slide = new this.slideModule (properties);
+        slide.onAdd();
+        return slide;
+    };
 
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;

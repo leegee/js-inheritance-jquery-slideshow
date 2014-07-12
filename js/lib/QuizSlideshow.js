@@ -35,8 +35,17 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
     };
 
     QuizSlideshow.prototype.beforeShowFinal = function () {
+        var totals = {
+            passed  : 0,
+            failed  : 0,
+            total   : 0
+        };
         this.slides.forEach( function (slide, index){
-            console.info( index, slide )
+            console.log(slide)
+            var score = slide.getScore();
+            totals.passed += score.passed;
+            totals.failed += score.failed;
+            totals.total  += score.total;
         });
     };
 

@@ -1,10 +1,11 @@
 'use strict';
 
-define( ["Slideshow", "jquery"], function (Slideshow, jQuery) {
+define( ["Slideshow", "Slide", "jquery"], function (Slideshow, Slide, jQuery) {
 	jQuery(document).ready( function () {
 		var o = new Slideshow ({
-			el : '.slideshow',
-			uri: 'img'
+			el           : '.slideshow',
+			uri          : 'img',
+            slideModule  : Slide
 		});
 	});
 });
