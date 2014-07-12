@@ -22,7 +22,7 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
 		console.log('QuizSlide.addSlide [%d]', this.startIndex);
 	};
 
-    QuizSlide.prototype.defaults = Slide.prototype.defaults;
+    QuizSlide.prototype.defaults = Word2ImgSlide.prototype.defaults;
     QuizSlide.prototype.defaults.beforeChange = function () {};
     QuizSlide.prototype.defaults.afterChange  = function () {};
     QuizSlide.prototype.defaults.beforeHide   = function () {};

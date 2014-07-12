@@ -32,8 +32,8 @@ require.config({
         "Base":              "lib/Base",
         "Slideshow":         "lib/Slideshow",
         "Slide":             "lib/Slide",
-        "Wod2ImgSlideshow":  "lib/Wod2ImgSlideshow",
-        "Wod2ImgSlide":      "lib/Wod2ImgSlide",
+        "Word2ImgSlideshow": "lib/Word2ImgSlideshow",
+        "Word2ImgSlide":     "lib/Word2ImgSlide",
         "QuizSlideshow":     "lib/QuizSlideshow",
         "QuizSlide":         "lib/QuizSlide"
     },

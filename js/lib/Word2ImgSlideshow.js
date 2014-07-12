@@ -1,7 +1,6 @@
 'use strict';
 
 define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide, Ls) {
-
 	var Word2ImgSlideshow = function (args) {
 		console.group('Word2ImgSlideshow.constructor enter ', arguments);
 
