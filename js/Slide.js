@@ -39,7 +39,16 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	Slide.prototype.defaults = {
 		el 			: null, 	// HTML element that is the slide
 		index		: null,		// Index within the slideshow
-		change 	: function () {},
+		beforeChange 	: function () {},
+        afterChange     : function () {},
+        beforeHide      : function () {},
+        afterHide       : function () {},
+        beforeShow      : function () {},
+        afterShow       : function () {},
+        beforeIn        : function () {},
+        afterIn         : function () {},
+        beforeOut       : function () {},
+        afterOut        : function () {},
 		fx_speeds_default : 5000,
 		transitions : {
 			show : {
@@ -72,23 +81,35 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	};
 
 	Slide.prototype.show = function () {
+        this.beforeChange.call(this);
+        this.beforeShow.call(this);
 		this.el.transition( this.transitions.show );
-		this.change.call(this);
+        this.afterShow.call(this);
+        this.afterChange.call(this);
 	}
 
 	Slide.prototype.hide = function () {
+        this.beforeChange.call(this);
+        this.beforeHide.call(this);
 		this.el.transition( this.transitions.hide );
-	    this.change.call(this);
+        this.afterHide.call(this);
+        this.afterChange.call(this);
 	}
 
 	Slide.prototype.out = function () {
+        this.beforeChange.call(this);
+        this.beforeOut.call(this);
 		this.el.transition( this.transitions.out );
-		this.change.call(this);
+        this.afterOut.call(this);
+		this.afterChange.call(this);
 	}
 
 	Slide.prototype.in = function () {
-		this.el.transition( this.transitions.in );
-	    this.change.call(this);
+        this.beforeChange.call(this);
+        this.beforeIn.call(this);
+        this.el.transition( this.transitions.in );
+        this.afterIn.call(this);
+	    this.afterChange.call(this);
 	}
 
 	return Slide;
