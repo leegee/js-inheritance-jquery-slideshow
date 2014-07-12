@@ -22,6 +22,19 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
 		console.log('QuizSlide.addSlide [%d]', this.startIndex);
 	};
 
+    QuizSlide.prototype.defaults = Slide.prototype.defaults;
+    QuizSlide.prototype.defaults.beforeChange = function () {};
+    QuizSlide.prototype.defaults.afterChange  = function () {};
+    QuizSlide.prototype.defaults.beforeHide   = function () {};
+    QuizSlide.prototype.defaults.afterHide    = function () {};
+    QuizSlide.prototype.defaults.beforeShow   = function () {};
+    QuizSlide.prototype.defaults.afterShow    = function () {};
+    QuizSlide.prototype.defaults.beforeIn     = function () {};
+    QuizSlide.prototype.defaults.afterIn      = function () {};
+    QuizSlide.prototype.defaults.beforeOut    = function () {};
+    QuizSlide.prototype.defaults.afterOut     = function () {};
+
+
     // TODO: Currently reates a few extra nodes
     QuizSlide.prototype.X_textNode2NodeArray = function (textNode) {
         var rvNode = document.createElement('span');
