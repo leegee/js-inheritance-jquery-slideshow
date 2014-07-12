@@ -19,7 +19,7 @@ define(["jquery"], function (jQuery) {
 		}
 
 		// Create an id for the element if necessary:
-		if (typeof this.el.id === 'undefined'){
+		if (typeof this.el.attr('id') === 'undefined'){
 			var d = new Date().getTime();
 			var uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 				var r = (d + Math.random()*16)%16 | 0;

@@ -11,34 +11,23 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 
 		jQuery.fx.speeds._default = this.fx_speeds_default;
 
-		this.onAdd = function () {
-			// Store the clone's attributes, including style:
-			var wrapper = jQuery('<section></section>');
-			var attributes = self.el.prop("attributes");
-			jQuery.each(attributes, function () {
-				if (typeof this != 'undefined'){
-					wrapper.attr( this.name, this.value );
-					self.el.removeAttr( this.name );
-				}
-			});
+        this.isFirst = this.el.attr( this.firstSlideAttr ) && this.el.attr( this.firstSlideAttr ) === this.firstSlideValue;
+        this.isFinal = this.el.attr( this.finalSlideAttr ) && this.el.attr( this.finalSlideAttr ) === this.finalSlideValue;
 
-			var clone = self.el.clone(true,true); // event and data deep copy
-			wrapper.append( clone );
-
-			self.el.replaceWith( wrapper );
-			self.el = wrapper;
-
-			self.el.addClass('slide');
-			self.el.attr('data-slide', self.index );
-		};
-		console.groupEnd('Slide.constructor leave ', this);
+        console.groupEnd('Slide.constructor leave ', this);
 	};
 
 	Slide.prototype = Object.create( Base.prototype );
 	Slide.prototype.constructor = Slide; // .prototype.constructor;
 	Slide.prototype.defaults = {
-		el 			: null, 	// HTML element that is the slide
-		index		: null,		// Index within the slideshow
+		el 			    : null, 	// HTML element that is the slide
+		index		    : null,		// Index within the slideshow
+        isFirst         : null,     // Set dynamically based on firstSlideAttr/firstSlideValue
+        firstSlideValue : 'first',  // Expect this value in firstSlideAttr
+        firstSlideAttr  : 'id',     // Expect this attribute to cf with firstSlideValue to set isFrist
+        isFinal         : null,     // Set dynamically based on finalSlideAttr/finalSlideValue
+        finalSlideValue : 'final',  // Expect this value in finalSlideAttr
+        finalSlideAttr  : 'id',     // Expect this attribute to cf with finalSlideValue to set isFrist
 		beforeChange 	: function () {},
         afterChange     : function () {},
         beforeHide      : function () {},
@@ -80,13 +69,38 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 		}
 	};
 
+    Slide.prototype.onAdd = function () {
+        // Store the clone's attributes, including style:
+        var wrapper = jQuery('<section></section>');
+
+        for (var attributes = this.el.get(0).attributes,
+                 i = 0;
+                 i < attributes.length;
+                 i ++
+        ){
+            if (typeof attributes[i] !== 'undefined'){
+                wrapper.attr( attributes[i].nodeName, attributes[i].nodeValue );
+                this.el.removeAttr( attributes[i].nodeName );
+            }
+        }
+
+        var clone = this.el.clone(true,true); // event and data deep copy
+        wrapper.append( clone );
+
+        this.el.replaceWith( wrapper );
+        this.el = wrapper;
+
+        this.el.addClass('slide');
+        this.el.attr('data-slide', this.index );
+    };
+
 	Slide.prototype.show = function () {
         this.beforeChange.call(this);
         this.beforeShow.call(this);
 		this.el.transition( this.transitions.show );
         this.afterShow.call(this);
         this.afterChange.call(this);
-	}
+	};
 
 	Slide.prototype.hide = function () {
         this.beforeChange.call(this);
@@ -94,7 +108,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 		this.el.transition( this.transitions.hide );
         this.afterHide.call(this);
         this.afterChange.call(this);
-	}
+	};
 
 	Slide.prototype.out = function () {
         this.beforeChange.call(this);
@@ -102,7 +116,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 		this.el.transition( this.transitions.out );
         this.afterOut.call(this);
 		this.afterChange.call(this);
-	}
+	};
 
 	Slide.prototype.in = function () {
         this.beforeChange.call(this);
@@ -110,7 +124,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
         this.el.transition( this.transitions.in );
         this.afterIn.call(this);
 	    this.afterChange.call(this);
-	}
+	};
 
 	return Slide;
 });

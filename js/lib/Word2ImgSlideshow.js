@@ -1,31 +1,23 @@
 'use strict';
 
 define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide, Ls) {
-	var Word2ImgSlideshow = function (args) {
+	var Word2ImgSlideshow = function (properties) {
 		console.group('Word2ImgSlideshow.constructor enter ', arguments);
 
 		var self = this;
-		args.Words2ImgPaths = [];
+		properties.Words2ImgPaths = [];
 
 		new Ls({
-			uri: args.uri,
+			uri: properties.uri,
 		 	next: function (imagePaths) {
-			for (var i=0; i < imagePaths.length; i++){
-				// Get the name before the extension:
-				var match = imagePaths[i].toLowerCase().match(/(\w+?)\.\w+$/);
-				if (match && match[1]){
-					args.Words2ImgPaths[ match[1] ] = imagePaths[i];
-				}
-			}
-
-			if ( args.Words2ImgPaths.length == 0 ){
-				console.warn('No images found!', this);
-			}
-
-			Slideshow.call(self, args);
-			self.setupControls();
-			console.groupEnd('Word2ImgSlideshow.constructor done ', self);
-		}});
+                console.group('Ls.next enter');
+    			self.setWords2ImagePaths(imagePaths, properties);
+    			Slideshow.call(self, properties);
+    			self.setupControls();
+                console.groupEnd('Ls.next leave');
+            }
+        });
+        console.groupEnd('Word2ImgSlideshow.constructor done ', self);
 	};
 
 	Word2ImgSlideshow.prototype 						= Object.create( Slideshow.prototype );
@@ -33,7 +25,24 @@ define(['Slideshow', 'Word2ImgSlide', 'Ls'], function (Slideshow, Word2ImgSlide,
 	Word2ImgSlideshow.prototype.defaults 				= Slideshow.prototype.defaults;
 	Word2ImgSlideshow.prototype.defaults.Words2ImgPaths = [];
 
-	Word2ImgSlideshow.prototype.defaults.addSlide = function (args) {
+    Word2ImgSlideshow.prototype.setWords2ImagePaths = function (imagePaths, properties) {
+        console.group('Word2ImgSlideshow.setWords2ImagePaths enter');
+        for (var i=0; i < imagePaths.length; i++){
+            // Get the name before the extension:
+            var match = imagePaths[i].toLowerCase().match(/(\w+?)\.\w+$/);
+            if (match && match[1]){
+                properties.Words2ImgPaths[ match[1] ] = imagePaths[i];
+                console.log('Added [%s] as [%s]', match[1], imagePaths[i] )
+            }
+        }
+
+        if (Object.keys( properties.Words2ImgPaths ).length == 0 ){
+            console.warn('No properties.Words2ImgPaths found!', properties, imagePaths);
+        }
+        console.groupEnd('Word2ImgSlideshow.setWords2ImagePaths leave');
+    };
+
+	Word2ImgSlideshow.prototype.addSlide = function (args) {
 		var slide = new Word2ImgSlide (jQuery.extend(args, {
 			Words2ImgPaths : this.Words2ImgPaths
 		}));

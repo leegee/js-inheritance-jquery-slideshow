@@ -35,7 +35,7 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		this.slides[ this.startIndex ].show();
 	};
 
-	Slideshow.prototype.defaults.addSlide = function (args) {
+	Slideshow.prototype.addSlide = function (args) {
 		var slide = new Slide(args);
 		slide.onAdd();
 		return slide;
@@ -78,17 +78,28 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 	};
 
 	Slideshow.prototype.change = function (directionOrIndex) {
-		console.log('Slideshow.change slide #%d out', this.currentIndex);
+		console.trace();
+        console.log('Slideshow.change enter for slide #%d, direction %d', this.currentIndex, directionOrIndex);
 		this.slides[ this.currentIndex ].out();
 		this.slides[ this.currentIndex ].hide();
 
 		if (directionOrIndex=='next'){
-			this.direction = 1;
-			this.currentIndex += this.direction;
+			if (this.slides[ this.currentIndex ].isFinal){
+                console.log('Slideshow.change not showing next, Slide.isFinal');
+            } else {
+                this.direction = 1;
+    			this.currentIndex += this.direction;
+                console.log('Slideshow.change in not final, direction +1, currentIndex=[%d]', this.currentIndex);
+            }
 		}
 		else if (directionOrIndex=='previous'){
-			this.direction = -1;
-			this.currentIndex += this.direction;
+            if (this.slides[ this.currentIndex ].isFirst){
+                console.log('Slideshow.change not showing previous, Slide.isFirst');
+            } else {
+    			this.direction = -1;
+    			this.currentIndex += this.direction;
+                console.log('Slideshow.change in not first, direction now %d, currentIndex now ', this.direction, this.currentIndex);
+            }
 		}
 		else {
 			this.direction = 1;
@@ -96,14 +107,25 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		}
 
 		if (this.currentIndex >= this.slides.length){
-			this.currentIndex = 0;
+            var nextIndex = 0;
+            if (this.slides[ nextIndex ].isFinal){
+                console.log('Slideshow.change not setting currentIndex to 0, Slide.isFinal');
+            } else {
+                console.log('Slideshow.change set currentIndex to 0');
+    			this.currentIndex = nextIndex;
+            }
 		}
 		else if (this.currentIndex < 0){
-			this.currentIndex = this.slides.length -1
+            var nextIndex = this.slides.length - 1;
+            if (this.slides[ nextIndex ].isFirst){
+               console.log('Slideshow.change not setting currentIndex to the end, Slide.isFinal');
+            } else {
+    			this.currentIndex = nextIndex;
+               console.log('Slideshow.change setting currentIndex to the end');
+            }
 		}
 
-		console.log('Slideshow.change slide #%d in', this.currentIndex);
-
+		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
 		this.slides[ this.currentIndex ].in( this.direction );
 		this.slides[ this.currentIndex ].show();
 	}
