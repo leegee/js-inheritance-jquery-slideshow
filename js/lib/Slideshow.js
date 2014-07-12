@@ -96,20 +96,12 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
         var nextIndex  = this.currentIndex + this.direction;
 		if (nextIndex == this.slides.length){
-            if (this.slides[ this.slides.length - 1].isFinal){
-                console.log('Slideshow.change not changing currentIndex to 0, Slide.isFinal');
-            } else {
-                console.log('Slideshow.change set currentIndex to 0');
-    			this.currentIndex = 0;
-            }
+            console.log('Slideshow.change set currentIndex to 0');
+			this.currentIndex = 0;
 		}
 		else if (nextIndex < 0){
-            if (this.slides[0].isFirst){
-               console.log('Slideshow.change not setting currentIndex to the end, Slide.isFinal');
-            } else {
-    			this.currentIndex = nextIndexthis.slides.length - 1;
-                console.log('Slideshow.change setting currentIndex to the end');
-            }
+			this.currentIndex = this.slides.length - 1;
+            console.log('Slideshow.change setting currentIndex to the end');
 		}
         else {
             this.currentIndex = nextIndex;
@@ -126,16 +118,8 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		this.slides[ this.currentIndex ].show();
 	};
 
-    Slideshow.prototype.beforeShowFirst = function () {
-    };
-
-    Slideshow.prototype.beforeShowFinal = function () {
-        alert(1)
-        this.slides.forEach( function (slide, index){
-            console.info( index, slide )
-        });
-    };
-
+    Slideshow.prototype.beforeShowFirst = function () {};
+    Slideshow.prototype.beforeShowFinal = function () {};
 
 	return Slideshow;
 });
