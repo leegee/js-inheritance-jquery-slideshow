@@ -28,7 +28,6 @@ require.config({
         "Modernizer":        "vendor/modernizr-2.6.2.min",
         "jquery":            "vendor/jquery-1.10.2.min",
         "jquery-transit":    "vendor/jquery.transit.min",
-        "jquery-icheck":     "vendor/jquery.icheck-1.0.2/icheck.min",
         "Ls":                "lib/Ls",
         "Base":              "lib/Base",
         "Slideshow":         "lib/Slideshow",
