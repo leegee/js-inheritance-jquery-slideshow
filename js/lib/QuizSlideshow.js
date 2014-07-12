@@ -38,15 +38,27 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
         var totals = {
             passed  : 0,
             failed  : 0,
-            total   : 0
+            total   : 0,
+            slides  : this.slides.length
         };
         this.slides.forEach( function (slide, index){
-            console.log(slide)
             var score = slide.getScore();
             totals.passed += score.passed;
             totals.failed += score.failed;
             totals.total  += score.total;
         });
+
+        var report = this.slides[ this.slides.length -1].el.find('#report');
+        if (report.length == 0){
+            report = this.slides[ this.slides.length -1].el.find(':first-child');
+            report = jQuery(report[0]).append('<aside id="#report"></aside>');
+        }
+        report.html(
+            'You gave '+(totals.total)+' answers to '+
+            totals.slides+' questions'+(totals.slides==1?'':'s')+':<br/>'+
+            (totals.passed) +' '+ (totals.passed==1? 'was':'were') + ' correct,<br/>'+
+            (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect,<br/>'
+         )
     };
 
 	return QuizSlideshow;

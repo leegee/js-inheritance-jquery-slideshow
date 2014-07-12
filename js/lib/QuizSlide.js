@@ -18,11 +18,12 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
 		if ( ! args instanceof Object){
 			throw new TypeError('arguments[0] should be an instanceof Object');
 		}
-        Word2ImgSlide.call(this, args);
+        Word2ImgSlide.addSlide.call(this, args);
 		console.log('QuizSlide.addSlide [%d]', this.startIndex);
 	};
 
     QuizSlide.prototype.defaults = Word2ImgSlide.prototype.defaults;
+    QuizSlide.prototype.defaults.correctAttr = 'data-correct';
 
     // TODO: Currently reates a few extra nodes
     QuizSlide.prototype.X_textNode2NodeArray = function (textNode) {
@@ -64,9 +65,21 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
     };
 
     QuizSlide.prototype.getScore = function () {
-        this.el.find('input').forEach( function (){
-            console.info( this, arguments );
-        })
+        var self = this;
+        var score = {
+            passed: 0,
+            failed: 0,
+            total:  0
+        };
+        jQuery(this.el).find('input:checked, input:selected').each( function () {
+            if (jQuery(this).attr( self.correctAttr )){
+                score.passed ++;
+            } else {
+                score.failed ++;
+            }
+            score.total ++;
+        });
+        return score;
     };
 
 	return QuizSlide;
