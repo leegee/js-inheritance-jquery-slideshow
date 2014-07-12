@@ -1,6 +1,6 @@
 'use strict';
 
-define([ 'Word2ImgSlideshow', 'QuizSlide', 'Ls', 'jquery', 'jquery-icheck'],
+define([ 'Word2ImgSlideshow', 'QuizSlide', 'Ls', 'jquery'],
 function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	var QuizSlideshow = function (properties) {
@@ -26,7 +26,6 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
     // Stop wrapping
     QuizSlideshow.prototype.nextIndexBeforeChange = function (nextIndex) {
-        console.info( this.currentIndex, this.slides.length -1, nextIndex);
         if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
             return 0;
         } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
