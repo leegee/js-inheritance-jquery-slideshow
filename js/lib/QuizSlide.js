@@ -32,7 +32,9 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
             failed: 0,
             total:  0
         };
-        jQuery(this.el).find('input:checked, input:selected').each( function () {
+
+        // Checkboxes, radios
+        jQuery(this.el).find('input:checked').each( function () {
             if (jQuery(this).attr( self.correctAttr )){
                 score.passed ++;
             } else {
@@ -40,6 +42,35 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
             }
             score.total ++;
         });
+
+        // Regexp
+        jQuery(this.el).find('input[type="text"]').each( function () {
+            var el = jQuery(this);
+            if (el.attr( self.correctAttr )){
+                try {
+                    var re = new RegExp( el.attr( self.correctAttr ), 'ig' );
+                    var val = el.val();
+                    if (typeof val !== 'undefed'){
+                        var m = val.match( re );
+                        if (m[1]){
+                            console.info(m);
+                            'debugger';
+                            score.passed ++;
+                        } else {
+                            score.failed --;
+                        }
+                    } else {
+                        score.failed --;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                score.failed ++;
+            }
+            score.total ++;
+        });
+
         return score;
     };
 

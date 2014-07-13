@@ -22,7 +22,22 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	QuizSlideshow.prototype 			= Object.create( Word2ImgSlideshow.prototype );
 	QuizSlideshow.prototype.constructor = QuizSlideshow;
-    QuizSlideshow.prototype.beforeShowFirst = function () {};
+
+    QuizSlideshow.prototype.keypressed = function (self, e) {
+        var self = this;
+        // Next slide
+        switch (e.keyCode){
+            case 13: // enter
+                e.preventDefault();
+                self.change('next');
+                break;
+            case 8 : // backspace
+            case 46: // del
+                e.preventDefault();
+                self.change('previous');
+                break;
+        }
+    };
 
     // Stop wrapping
     QuizSlideshow.prototype.beforeChange = function (nextIndex) {
@@ -47,13 +62,16 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
     };
 
     QuizSlideshow.prototype.beforeShowFinal = function () {
+        console.group('QuizSlideshow.beforeShowFinal enter');
         var totals = {
             passed  : 0,
             failed  : 0,
             total   : 0,
             slides  : this.slides.length
         };
+
         this.slides.forEach( function (slide, index){
+            console.log("Slide #%d:", index, slide);
             var score = slide.getScore();
             totals.passed += score.passed;
             totals.failed += score.failed;
@@ -71,11 +89,8 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             (totals.passed) +' '+ (totals.passed==1? 'was':'were') + ' correct,<br/>'+
             (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect.'
          )
+        console.groupEnd('QuizSlideshow.beforeShowFinal leave');
     };
-
-    QuizSlideshow.prototype.afterChange = function () {
-    };
-
 
 	return QuizSlideshow;
 });

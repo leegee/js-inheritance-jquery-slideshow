@@ -63,7 +63,7 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 
     Slide.prototype.onAdd = function () {
         console.info(this)
-        this.el.hide();
+        this.el.show();
 
         // Store the clone's attributes, including style:
         var wrapper = jQuery('<section></section>');
@@ -79,13 +79,14 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
             }
         }
         wrapper.attr('id', this.el.attr('id'));
-
+        this.el.removeAttr('id');
         var clone = this.el.clone(true,true); // event and data deep copy
         wrapper.append( clone );
 
         this.el.replaceWith( wrapper );
         this.el = wrapper;
 
+        this.el.hide();
         this.el.addClass('slide');
         this.el.attr('data-slide', this.index );
     };

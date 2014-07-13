@@ -1,3 +1,36 @@
+
+#controls {
+    width: auto;
+    height: auto;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    padding: 0.1em;
+}
+    #previous, #next {
+        cursor: hand; cursor: pointer;
+        color: rgba( 240, 240, 240, 0.7);
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        float: left;
+        font-weight: 900;
+        border: 1pt solid black;
+        padding: .5em;
+        border-radius: 50%;
+        background: rgba(2,2,2,0.2);
+        text-shadow: 0px 0px 4pt rgba(2,2,2,0.5);
+        text-shadow: 0px 0px -2pt white;
+    }
+    #previous:after {
+        content: "◀";
+        margin-right:0.3em;
+    }
+    #next:after {
+        content: "▶";
+        margin-left:0.3em;
+    }
+
 .slideshow {
 	display: block;
 	position: absolute;
@@ -10,11 +43,8 @@
 	clear: both;
     white-space: nowrap;
     background: black;
+    color: white;
     overflow: hidden;
-}
-
-.slideshow,
-.slideshow input {
     font-size: 32pt;
 }
 
@@ -27,6 +57,7 @@
     opacity: 0;
 	display: table;
     background: purple;
+    color: white;
 }
 
 .slideshow .slide > *:first-child {
@@ -51,38 +82,6 @@
 	font-size: 50%;
 }
 
-#controls {
-	width: auto;
-	height: auto;
-	position: absolute;
-	bottom: 1em;
-	right: 1em;
-	padding: 0.1em;
-}
-	#previous, #next {
-		cursor: hand; cursor: pointer;
-		color: rgba( 240, 240, 240, 0.7);
-		width: 1em;
-		height: 1em;
-		line-height: 1em;
-		float: left;
-		font-weight: 900;
-        border: 1pt solid black;
-        padding: .5em;
-        border-radius: 50%;
-        background: rgba(2,2,2,0.2);
-        text-shadow: 0px 0px 4pt rgba(2,2,2,0.5);
-        text-shadow: 0px 0px -2pt white;
-	}
-	#previous:after {
-		content: "◀";
-		margin-right:0.3em;
-	}
-	#next:after {
-		content: "▶";
-		margin-left:0.3em;
-	}
-
 .slideshow h1 {
     font-size: 24pt;
 }
@@ -95,7 +94,23 @@
     position: relative;
     margin-left: -400px;
     left: 50%;
-}
-.slideshow fieldset p {
+    font-family: Schoolbook, Georgia, "Times New Roman", serif;
     text-align: left;
 }
+.slideshow fieldset p {
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+.slideshow fieldset input[type='text'] {
+    font-family: fantasy;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #eee;
+    fonto-size: 32pt;
+}
+
+
+
+
+
