@@ -25,6 +25,13 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
     QuizSlide.prototype.defaults = Word2ImgSlide.prototype.defaults;
     QuizSlide.prototype.defaults.correctAttr = 'data-correct';
 
+    // Focus on first element
+    QuizSlide.prototype.afterShow = function () {
+        this.el.find('input, textarea').first().each( function () {
+            this.focus();
+        });
+    };
+
     QuizSlide.prototype.getScore = function () {
         var self = this;
         var score = {
@@ -48,19 +55,18 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
             var el = jQuery(this);
             if (el.attr( self.correctAttr )){
                 try {
-                    var re = new RegExp( el.attr( self.correctAttr ), 'ig' );
+                    var userRe = new RegExp( el.attr( self.correctAttr ), 'ig' );
                     var val = el.val();
+                    console.log(val, userRe)
                     if (typeof val !== 'undefed'){
-                        var m = val.match( re );
-                        if (m[1]){
-                            console.info(m);
-                            'debugger';
+                        var m = val.match( userRe );
+                        if (m !== null && m[0]){
                             score.passed ++;
                         } else {
-                            score.failed --;
+                            score.failed ++;
                         }
                     } else {
-                        score.failed --;
+                        score.failed ++;
                     }
                 } catch (e) {
                     console.error(e);

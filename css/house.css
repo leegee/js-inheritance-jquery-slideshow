@@ -66,6 +66,10 @@
     width: 100%;
     display: inline-block;
     display: table-cell;
+    position: absolute;
+    width: 800px;
+    margin-left: -400px;
+    left: 50%;
 }
 
 .slideshow .slide img {
@@ -88,12 +92,6 @@
 
 .slideshow fieldset {
     margin: 2em;
-    text-align: middle;
-    width: auto;
-    max-width: 800px;
-    position: relative;
-    margin-left: -400px;
-    left: 50%;
     font-family: Schoolbook, Georgia, "Times New Roman", serif;
     text-align: left;
 }

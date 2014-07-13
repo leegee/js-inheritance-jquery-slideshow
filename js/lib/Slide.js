@@ -18,18 +18,6 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 	Slide.prototype.defaults = {
 		el 			    : null, 	// HTML element that is the slide
 		index		    : null,		// Index within the slideshow
-        beforeHide      : function () {},
-        afterHide       : function () {
-            this.el.hide();
-        },
-        beforeShow      : function () {
-            this.el.show();
-        },
-        afterShow       : function () {},
-        beforeIn        : function () {},
-        afterIn         : function () {},
-        beforeOut       : function () {},
-        afterOut        : function () {},
 		fx_speeds_default : 5000,
 		transitions : {
 			show : {
@@ -61,6 +49,19 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
 		}
 	};
 
+    Slide.prototype.beforeHide  = function () {};
+    Slide.prototype.afterHide   = function () {
+        this.el.hide();
+    };
+    Slide.prototype.beforeShow   = function () {
+        this.el.show();
+    };
+    Slide.prototype.afterShow    = function () {};
+    Slide.prototype.beforeIn     = function () {};
+    Slide.prototype.afterIn      = function () {};
+    Slide.prototype.beforeOut    = function () {};
+    Slide.prototype.afterOut     = function () {};
+
     Slide.prototype.onAdd = function () {
         console.info(this)
         this.el.show();
@@ -78,8 +79,10 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
                 this.el.removeAttr( attributes[i].nodeName );
             }
         }
+
         wrapper.attr('id', this.el.attr('id'));
         this.el.removeAttr('id');
+
         var clone = this.el.clone(true,true); // event and data deep copy
         wrapper.append( clone );
 
@@ -92,27 +95,27 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
     };
 
 	Slide.prototype.show = function () {
-        this.beforeShow.call(this);
+        this.beforeShow();
 		this.el.transition( this.transitions.show );
-        this.afterShow.call(this);
+        this.afterShow();
 	};
 
 	Slide.prototype.hide = function () {
-        this.beforeHide.call(this);
+        this.beforeHide();
 		this.el.transition( this.transitions.hide );
-        this.afterHide.call(this);
+        this.afterHide();
 	};
 
 	Slide.prototype.out = function () {
-        this.beforeOut.call(this);
+        this.beforeOut();
 		this.el.transition( this.transitions.out );
-        this.afterOut.call(this);
+        this.afterOut();
 	};
 
 	Slide.prototype.in = function () {
-        this.beforeIn.call(this);
+        this.beforeIn();
         this.el.transition( this.transitions.in );
-        this.afterIn.call(this);
+        this.afterIn();
 	};
 
 	return Slide;

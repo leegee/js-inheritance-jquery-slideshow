@@ -83,11 +83,12 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             report = this.slides[ this.slides.length -1].el.find(':first-child');
             report = jQuery(report[0]).append('<aside id="#report"></aside>');
         }
-        report.html(
+        report.html('<p>'+
             'You gave '+(totals.total)+' answers to '+
             totals.slides+' questions'+(totals.slides==1?'':'s')+':<br/>'+
             (totals.passed) +' '+ (totals.passed==1? 'was':'were') + ' correct,<br/>'+
-            (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect.'
+            (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect.'+
+            '</p>'
          )
         console.groupEnd('QuizSlideshow.beforeShowFinal leave');
     };
