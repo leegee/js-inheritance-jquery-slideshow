@@ -1,11 +1,15 @@
 'use strict';
 
-define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
+define(['Base', 'jquery'], function (Base, jQuery) {
 
 	var Slideshow = function (args) {
 		console.group('Slideshow.constructor enter ', arguments);
 		Base.call(this, args);
-		this.addSlides();
+
+        if (this.slideModule === 'undefined'){
+            throw new TypeError ('this.slideModule must be an object (AMD "Slide" module)');
+        }
+        this.addSlides();
 		console.groupEnd('Slideshow.constructor leave ', this);
 	};
 
@@ -16,44 +20,49 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		direction		: 1,
 		currentIndex 	: 0,
 		startIndex 		: 0,
+        slideModule     : null,
 		slides 			: []	// Array[<Slide>]
 	};
 
 	Slideshow.prototype.addSlides = function () {
 		var self = this;
-		this.el.children().each( function (i, el) {
+		this.el.children().each( function (index, el) {
 			self.slides.push(
 				self.addSlide({
-					el 		: el,
-					index 	: i,
-					afterChange: function () { /** **/ }
-				})
+                    el: el,
+                    index: index
+                })
 			);
-			console.debug('Slideshow.addSlides loaded %d', i);
+			console.debug('Slideshow.addSlides loaded %d', index);
 		});
-
-        this.change(0);
+        this.slides[ this.currentIndex ].in( this.direction );
+        this.slides[ this.currentIndex ].show();
+        this.setupControls();
 	};
 
-	Slideshow.prototype.addSlide = function (args) {
-		var slide = new Slide(args);
-		slide.onAdd();
-		return slide;
-	};
+    Slideshow.prototype.addSlide = function (properties) {
+        var slide = new this.slideModule (properties);
+        slide.onAdd();
+        return slide;
+    };
 
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;
-        self.ctrls = jQuery('<div id="controls"><div id="left"></div><div id="right"></div></div>');
-		self.ctrls.appendTo( self.el );
-		jQuery('#left').on('click', function (e) {
+        self.controls = {};
+        self.controls.el = jQuery('<nav id="controls"><div id="previous"></div><div id="next"></div></nav>');
+		self.controls.el.appendTo( self.el );
+		self.controls.previous  = jQuery('#previous');
+        self.controls.next      = jQuery('#next');
+        jQuery('#previous').on('click', function (e) {
 			self.change('previous');
 		});
-		jQuery('#right').on('click', function (e) {
+		jQuery('#next').on('click', function (e) {
 			self.change('next');
 		});
 		jQuery(window).keyup( function (e) {
 			self.keypressed(self, e);
 		});
+        self.beforeChange(0);
 	}
 
 	Slideshow.prototype.keypressed = function (self, e) {
@@ -62,7 +71,6 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 		switch (e.keyCode){
 			case 40: // down
 			case 39: // right
-			case 32: // space
 			case 13: // enter
 				e.preventDefault();
 				self.change('next');
@@ -79,8 +87,6 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
 	Slideshow.prototype.change = function (direction) {
         console.log('Slideshow.change enter for slide #%d, direction %d', this.currentIndex, direction);
-		this.slides[ this.currentIndex ].out();
-		this.slides[ this.currentIndex ].hide();
 
 		if (direction=='next'){
             this.direction = 1;
@@ -96,46 +102,43 @@ define(['Base', 'Slide', 'jquery'], function (Base, Slide, jQuery) {
 
         var nextIndex  = this.currentIndex + this.direction;
 		if (nextIndex == this.slides.length){
-            if (this.slides[ this.slides.length - 1].isFinal){
-                console.log('Slideshow.change not changing currentIndex to 0, Slide.isFinal');
-            } else {
-                console.log('Slideshow.change set currentIndex to 0');
-    			this.currentIndex = 0;
-            }
+            console.log('Slideshow.change set currentIndex to 0');
+			nextIndex = 0;
 		}
 		else if (nextIndex < 0){
-            if (this.slides[0].isFirst){
-               console.log('Slideshow.change not setting currentIndex to the end, Slide.isFinal');
-            } else {
-    			this.currentIndex = nextIndexthis.slides.length - 1;
-                console.log('Slideshow.change setting currentIndex to the end');
-            }
+			nextIndex = this.slides.length - 1;
+            console.log('Slideshow.change setting currentIndex to the end');
 		}
-        else {
-            this.currentIndex = nextIndex;
-        }
 
-        if (this.currentIndex == 0){
-            this.beforeShowFirst();
-        } else if (this.currentIndex == this.slides.length -1){
-            this.beforeShowFinal();
-        }
+        var possNextIndex = this.beforeChange(nextIndex);
+        if (possNextIndex !== this.currentIndex){
+            this.slides[ this.currentIndex ].out();
+            this.slides[ this.currentIndex ].hide();
 
-		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
-		this.slides[ this.currentIndex ].in( this.direction );
-		this.slides[ this.currentIndex ].show();
+            this.currentIndex = possNextIndex;
+
+            if (this.currentIndex == 0){
+                this.beforeShowFirst();
+            } else if (this.currentIndex == this.slides.length -1){
+                this.beforeShowFinal();
+            }
+
+    		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
+    		this.slides[ this.currentIndex ].in( this.direction );
+    		this.slides[ this.currentIndex ].show();
+            this.afterChange();
+        }
 	};
 
-    Slideshow.prototype.beforeShowFirst = function () {
+    /** @return value that this.currentIndex will be assigned */
+    Slideshow.prototype.beforeChange = function (nextIndex) {
+        return nextIndex;
     };
 
-    Slideshow.prototype.beforeShowFinal = function () {
-        alert(1)
-        this.slides.forEach( function (slide, index){
-            console.info( index, slide )
-        });
-    };
+    Slideshow.prototype.afterChange = function () {};
 
+    Slideshow.prototype.beforeShowFirst = function () {};
+    Slideshow.prototype.beforeShowFinal = function () {};
 
 	return Slideshow;
 });
