@@ -25,17 +25,24 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
     QuizSlideshow.prototype.beforeShowFirst = function () {};
 
     // Stop wrapping
-    QuizSlideshow.prototype.nextIndexBeforeChange = function (nextIndex) {
+    QuizSlideshow.prototype.beforeChange = function (nextIndex) {
         if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
-            return 0;
+            nextIndex = 0;
         } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
-            return this.slides.length -1;
+            nextIndex = this.slides.length -1;
         }
 
-        if (typeof this.controls !== 'undefined'){
-            this.controls.left.show();
-            this.controls.right.show();
+        if (nextIndex <= 0){
+            this.controls.previous.hide();
+            this.controls.next.show();
+        } else if (nextIndex >= this.slides.length -1){
+            this.controls.previous.show();
+            this.controls.next.hide();
+        } else {
+            this.controls.previous.show();
+            this.controls.next.show();
         }
+
         return nextIndex;
     };
 
@@ -65,6 +72,10 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             (totals.failed) +' '+ (totals.failed==1? 'was':'were') + ' incorrect.'
          )
     };
+
+    QuizSlideshow.prototype.afterChange = function () {
+    };
+
 
 	return QuizSlideshow;
 });

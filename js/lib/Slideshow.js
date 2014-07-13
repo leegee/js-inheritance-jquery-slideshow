@@ -49,19 +49,20 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 	Slideshow.prototype.setupControls = function (args) {
 		var self = this;
         self.controls = {};
-        self.controls.el = jQuery('<nav id="controls"><div id="left"></div><div id="right"></div></nav>');
+        self.controls.el = jQuery('<nav id="controls"><div id="previous"></div><div id="next"></div></nav>');
 		self.controls.el.appendTo( self.el );
-		self.controls.left  = jQuery('#left');
-        self.controls.right = jQuery('#right');
-        jQuery('#left').on('click', function (e) {
+		self.controls.previous  = jQuery('#previous');
+        self.controls.next      = jQuery('#next');
+        jQuery('#previous').on('click', function (e) {
 			self.change('previous');
 		});
-		jQuery('#right').on('click', function (e) {
+		jQuery('#next').on('click', function (e) {
 			self.change('next');
 		});
 		jQuery(window).keyup( function (e) {
 			self.keypressed(self, e);
 		});
+        self.beforeChange(0);
 	}
 
 	Slideshow.prototype.keypressed = function (self, e) {
@@ -70,7 +71,6 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 		switch (e.keyCode){
 			case 40: // down
 			case 39: // right
-			case 32: // space
 			case 13: // enter
 				e.preventDefault();
 				self.change('next');
@@ -110,12 +110,13 @@ define(['Base', 'jquery'], function (Base, jQuery) {
             console.log('Slideshow.change setting currentIndex to the end');
 		}
 
-        var possNextIndex = this.nextIndexBeforeChange(nextIndex);
+        var possNextIndex = this.beforeChange(nextIndex);
         if (possNextIndex !== this.currentIndex){
             this.slides[ this.currentIndex ].out();
             this.slides[ this.currentIndex ].hide();
 
             this.currentIndex = possNextIndex;
+
             if (this.currentIndex == 0){
                 this.beforeShowFirst();
             } else if (this.currentIndex == this.slides.length -1){
@@ -125,10 +126,12 @@ define(['Base', 'jquery'], function (Base, jQuery) {
     		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
     		this.slides[ this.currentIndex ].in( this.direction );
     		this.slides[ this.currentIndex ].show();
+            this.afterChange();
         }
 	};
 
-    Slideshow.prototype.nextIndexBeforeChange = function (nextIndex) {
+    /** @return value that this.currentIndex will be assigned */
+    Slideshow.prototype.beforeChange = function (nextIndex) {
         return nextIndex;
     };
 
