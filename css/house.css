@@ -108,7 +108,29 @@
     fonto-size: 32pt;
 }
 
+.progress-bar {
+    display: block;
+    position: absolute;
+    top: .3em;
+    right: .3em;
+    width: 33%;
+    height: 16pt;
+    line-height: 10pt;
+    padding: 4pt;
+    border: 1px solid #666;
+    background: rgba(100,100,100,.5);
+    text-align: left;
+    border-radius: 4pt;
+}
 
-
+.progress-bar > * {
+    display: inline-block;
+    position: relative;
+    width: 0%;
+    height: 10pt;
+    border: 1px solid #333;
+    background: rgba(200,200,200,.9);
+    border-radius: 2pt;
+}
 
 
