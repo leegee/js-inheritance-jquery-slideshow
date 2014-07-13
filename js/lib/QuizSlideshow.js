@@ -38,6 +38,26 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
         }
     };
 
+    QuizSlideshow.prototype.setupControls = function (args) {
+        Word2ImgSlideshow.prototype.setupControls.call(this,args);
+        var holder = jQuery('<div class="progress-bar"><span class="progress"></span></div>');
+        this.el.append(holder);
+        this._progressEl = jQuery('.progress-bar > *');
+    };
+
+    QuizSlideshow.prototype.progress = function (nextIndex) {
+        var self = this;
+        nextIndex = nextIndex || this.currentIndex;
+        if (typeof this._progressEl !== 'undefined'){
+            this._progressEl.each( function () {
+                jQuery(this).css('width',
+                    (100 / (self.slides.length / (1+nextIndex) ))
+                    + '%'
+                 );
+            });
+        }
+    };
+
     // Stop wrapping
     QuizSlideshow.prototype.beforeChange = function (nextIndex) {
         if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
@@ -57,6 +77,7 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             this.controls.next.show();
         }
 
+        this.progress( nextIndex );
         return nextIndex;
     };
 
