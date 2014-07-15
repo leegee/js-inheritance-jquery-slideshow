@@ -67,7 +67,8 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
         this.el.show();
 
         // Store the clone's attributes, including style:
-        var wrapper = jQuery('<section></section>');
+        var wrapper = jQuery('<section class="slide"></section>');
+        wrapper.attr('data-slide', this.index );
 
         for (var attributes = this.el.get(0).attributes,
                  i = 0;
@@ -90,8 +91,6 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
         this.el = wrapper;
 
         this.el.hide();
-        this.el.addClass('slide');
-        this.el.attr('data-slide', this.index );
     };
 
 	Slide.prototype.show = function () {

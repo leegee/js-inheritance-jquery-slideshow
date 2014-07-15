@@ -16,7 +16,7 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
     		}
         });
 
-        console.groupEnd('Quiz Slideshow.constructor done ', this);
+        console.groupEnd('QuizSlideshow.constructor done ', this);
 	};
 
 	QuizSlideshow.prototype 			= Object.create( Word2ImgSlideshow.prototype );

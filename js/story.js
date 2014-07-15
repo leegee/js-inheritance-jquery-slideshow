@@ -1,12 +1,12 @@
 'use strict';
 
-define( ["QuizSlideshow", "QuizSlide", "jquery"],
+define( ["StorySlideshow", "StorySlide", "jquery"],
 function (QuizSlideshow,   QuizSlide,   Query ) {
 	jQuery(document).ready( function () {
-		var o = new QuizSlideshow ({
+		var o = new StorySlideshow ({
 			el : '.slideshow',
 			uri: 'img',
-            slideModule  : QuizSlide
+            slideModule  : StorySlide
 		});
 	});
 });
