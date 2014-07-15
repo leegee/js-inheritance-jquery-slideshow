@@ -1,36 +1,4 @@
 
-#controls {
-    width: auto;
-    height: auto;
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    padding: 0.1em;
-}
-    #previous, #next {
-        cursor: hand; cursor: pointer;
-        color: rgba( 240, 240, 240, 0.7);
-        width: 1em;
-        height: 1em;
-        line-height: 1em;
-        float: left;
-        font-weight: 900;
-        border: 1pt solid black;
-        padding: .5em;
-        border-radius: 50%;
-        background: rgba(2,2,2,0.2);
-        text-shadow: 0px 0px 4pt rgba(2,2,2,0.5);
-        text-shadow: 0px 0px -2pt white;
-    }
-    #previous:after {
-        content: "◀";
-        margin-right:0.3em;
-    }
-    #next:after {
-        content: "▶";
-        margin-left:0.3em;
-    }
-
 .slideshow {
 	display: block;
 	position: absolute;
@@ -47,6 +15,44 @@
     overflow: hidden;
     font-size: 32pt;
 }
+
+.slideshow #controls {
+    width: auto;
+    height: auto;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    padding: 0.1em;
+}
+    .slideshow #controls .previous,
+    .slideshow #controls .next {
+        font-size: 24pt;
+        font-weight: 900;
+        cursor: hand; cursor: pointer;
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        float: left;
+        border: 1pt solid rgba(2,2,2,0.4);
+        padding: .5em;
+        border-radius: 50%;
+        color: rgba( 255, 255, 255, 0.9);
+        background: rgba(2,2,2,0.2);
+        text-shadow:    0px 0px 4pt rgba(2,2,2,0.9);
+    }
+    .slideshow #controls .previous:hover,
+    .slideshow #controls .next:hover {
+        color: rgba( 255, 255, 255, 1);
+        background: rgba(2,2,2, .7);
+    }
+    .slideshow #controls .previous:after {
+        content: "◀";
+        margin-right:0.3em;
+    }
+    .slideshow #controls .next:after {
+        content: "▶";
+        margin-left:0.3em;
+    }
 
 .slideshow .slide {
 	position: absolute;

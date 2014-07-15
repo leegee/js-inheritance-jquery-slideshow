@@ -1,15 +1,13 @@
 'use strict';
 
-define(['QuizSlide'], function (QuizSlide) {
+define(['QuizSlide', 'jquery'], function (QuizSlide, jQuery) {
 
-	var QuizSlide = function (properties) {
+	var StorySlide = function (properties) {
 		console.group('StorySlide.constructor enter ', arguments);
         var self = this;
 
-        if ( ! args.el instanceof jQuery){
-            throw new TypeError('Expected arguments[el] to be an instanceof jQuery');
-        }
-        if ( ! args.el.attr('id')){
+        properties.el = jQuery( properties.el );
+        if ( ! properties.el.attr('id')){
             throw new TypeError('Argument "el" has no "id" attribute');
         }
 
@@ -34,5 +32,5 @@ define(['QuizSlide'], function (QuizSlide) {
     StorySlide.prototype.defaults = QuizSlide.prototype.defaults;
     StorySlide.prototype.defaults.correctAttr = 'data-correct';
 
-	return QuizSlide;
+	return StorySlide;
 });

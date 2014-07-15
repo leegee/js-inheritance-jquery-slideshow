@@ -3,21 +3,21 @@
 define([ 'QuizSlideshow', 'QuizSlide', 'Ls', 'jquery'],
 function (QuizSlideshow,   QuizSlide,   Ls,   jQuery) {
 
-	var Storylideshow = function (properties) {
+	var StorySlideshow = function (properties) {
 		console.group('StorySlideshow.constructor enter ', arguments);
 		QuizSlideshow.call(this, properties);
         console.groupEnd('StorySlideshow.constructor done ', this);
 	};
 
-	QuizSlideshow.prototype 			= Object.create( QuizSlideshow.prototype );
-	QuizSlideshow.prototype.constructor = StorySlideshow;
+	StorySlideshow.prototype 			= Object.create( QuizSlideshow.prototype );
+	StorySlideshow.prototype.constructor = StorySlideshow;
 
-    QuizSlideshow.prototype.setupControls = function (args) {
-        StorySlideshow.prototype.setupControls.call(this,args);
+    StorySlideshow.prototype.setupControls = function (args) {
+        QuizSlideshow.prototype.setupControls.call(this,args);
     };
 
     // Stop wrapping
-    QuizSlideshow.prototype.beforeChange = function (nextIndex) {
+    StorySlideshow.prototype.beforeChange = function (nextIndex) {
         if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
             nextIndex = 0;
         } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
@@ -39,5 +39,5 @@ function (QuizSlideshow,   QuizSlide,   Ls,   jQuery) {
         return nextIndex;
     };
 
-	return QuizSlideshow;
+	return StorySlideshow;
 });

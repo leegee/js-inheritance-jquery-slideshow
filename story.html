@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Story</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="generator" content="HTML5Boilerplate, thank you.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/house.css">
+        <script src='js/vendor/require.js' data-main='js/require-config.js'></script>
+        <script src='js/story.js'></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <article class='slideshow'>
+
+            <figure style='background:brown; color: gold;'>
+                <fieldset>
+                    <legend>A Tiny Quiz</legend>
+                    <p>
+                        Click the answers you think are correct,
+                        and then use the arrows on the screen or
+                        press the 'enter' key on your keyboard (if you have one).
+                    </p>
+                </fieldset>
+            </figure>
+
+	        <figure style='background:pink; color: brown;'>
+                <fieldset>
+                    <legend>What is Illy?</legend>
+                    <p>
+                        <input type='checkbox' id='q1a1' data-correct='true'/>
+                        <label for='q1a1'>Coffee</label>
+                    </p>
+                    <p>
+                        <input type='checkbox' id='q1a2' data-correct='true'/>
+                        <label for='q1a2'>A girl</label>
+                    </p>
+                    <p>
+                        <input type='checkbox' id='q1a3'/>
+                        <label for='q1a3'>a car</label>
+                    </p>
+                </fieldset>
+	        </figure>
+
+	        <figure style='background: navy; color: white;'>
+                <fieldset>
+                    <legend>What is Jake?</legend>
+                    <p>
+                        <input type='checkbox' id='q2a1' data-correct='true'/>
+                        <label for='q2a1'>The steak</label>
+                    </p>
+                    <p>
+                        <input type='checkbox' id='q2a2'/>
+                        <label for='q2a2'>A Telepod</label>
+                    </p>
+                    <p>
+                        <input type='checkbox' id='q2a3' data-correct='true'/>
+                        <label for='q2a3'>A boy</label>
+                    </p>
+                </fieldset>
+	        </figure>
+
+            <figure>
+                <fieldset style="font-family:fantasy">
+                    <legend>Can you spell your name?</legend>
+                    <p>
+                        <input type='text'
+                            style="color: white; background: transparent"
+                            data-correct='(illy|ilona|ilonke|ilike|jacob|jakab|jake|steak|mum|paula|polar|anya|anyu)'
+                        />
+                    </p>
+                </fieldset>
+            </figure>
+
+	        <figure style='background: darkorange; color: white; font-size: 100%'>
+                <fieldset>
+                    <legend>What is Mum?</legend>
+                    <p>
+                        <input type='radio' name='q3' value='q3a1' id='q3a1'/>
+                        <label for='q3a1'>Green</label>
+                    </p>
+                    <p>
+                        <input type='radio' name='q3' value='q3a2' id='q3a2' data-correct='true'/>
+                        <label for='q3a2'>A bit tired</label>
+                    </p>
+                    <p>
+                        <input type='radio' name='q3' value='q3a3' id='q3a3'/>
+                        <label for='q3a3'>On holiday</label>
+                    </p>
+                </fieldset>
+	        </figure>
+
+	        <figure style='background: black; color: silver; font-variant: smallcaps;'>
+                <h1>The End</h1>
+	        </figure>
+	    </article>
+    </body>
+</html>

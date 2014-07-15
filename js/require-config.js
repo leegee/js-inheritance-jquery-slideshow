@@ -35,7 +35,9 @@ require.config({
         "Word2ImgSlideshow": "lib/Word2ImgSlideshow",
         "Word2ImgSlide":     "lib/Word2ImgSlide",
         "QuizSlideshow":     "lib/QuizSlideshow",
-        "QuizSlide":         "lib/QuizSlide"
+        "QuizSlide":         "lib/QuizSlide",
+        "StorySlideshow":     "lib/StorySlideshow",
+        "StorySlide":         "lib/StorySlide"
     },
     waitSeconds: 1
 });

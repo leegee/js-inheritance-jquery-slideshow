@@ -1,17 +1,17 @@
 'use strict';
 
 define(["jquery"], function (jQuery) {
-	function Base (args) {
+	function Base (properties) {
 		console.log('Base.constructor enter')
-		// Merge args into defaults, into instance:
-		args = args || {};
-		args = jQuery.extend({}, this.defaults, args);
-		for (var i in args){
-			this[i] = args[i];
+		// Merge properties into defaults, into instance:
+		properties = properties || {};
+		properties = jQuery.extend({}, this.defaults, properties);
+		for (var i in properties){
+			this[i] = properties[i];
 		}
 
 		// Create the .el field as a jQuery object, if it is not already.
-		if (args.el instanceof jQuery === false){
+		if (properties.el instanceof jQuery === false){
 			this.el = jQuery(this.el);
 		}
 		if (this.el===null){

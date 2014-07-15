@@ -1,7 +1,7 @@
 'use strict';
 
 define( ["QuizSlideshow", "QuizSlide", "jquery"],
-function (QuizSlideshow,   QuizSlide,   Query ) {
+function (QuizSlideshow,   QuizSlide,   jQuery ) {
 	jQuery(document).ready( function () {
 		var o = new QuizSlideshow ({
 			el : '.slideshow',
