@@ -62,14 +62,12 @@
 
 .slideshow .slide > *:first-child {
     white-space: normal;
-    vertical-align: middle;
-    width: 100%;
     display: inline-block;
+    vertical-align: middle;
     display: table-cell;
-    position: absolute;
-    width: 800px;
-    margin-left: -400px;
-    left: 50%;
+
+    width: 80%;
+    margin-left: -40%;
 }
 
 .slideshow .slide img {
