@@ -23,7 +23,10 @@ define(['Slide'], function (Slide) {
 	};
 
 	Word2ImgSlide.prototype.walkDOM = function (inputNode, rvNodes) { // DOM walker
-		rvNodes = rvNodes || document.createElement('span');
+        if (typeof inputNode === 'undefined') {
+            return;
+        }
+        rvNodes = rvNodes || document.createElement('span');
 	    if (inputNode.nodeType == 3) { // text node
 	        if (1 || nonWhitespaceMatcher.test(node.nodeValue)) {
 	            var parentNode = inputNode.parentNode;

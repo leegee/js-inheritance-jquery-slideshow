@@ -13,10 +13,8 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             next: function (imagePaths) {
                 console.group('Ls.next enter');
                 self.setWords2ImagePaths(imagePaths, properties);
-                // This comes from Word2ImgSlideshow, but
-                // perhaps it ought to be:
                 Word2ImgSlideshow.prototype.parent.call(self,properties);
-                // Slideshow.call(self, properties);
+                self.createReportEl();
                 console.groupEnd('Ls.next leave');
             }
         });
@@ -43,6 +41,17 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
                 break;
         }
     };
+
+    QuizSlideshow.prototype.createReportEl = function () {
+        this.el.append( '<section id="report-slide"><figure id="report"></figure></section>' );
+        this.slides.push(
+            this.addSlide({
+                el: jQuery('#report-slide'),
+                index: this.slides.length // xxx get rid of index
+            })
+        );
+        this.reportEl = jQuery('#report');
+    }
 
     QuizSlideshow.prototype.setupControls = function (args) {
         Word2ImgSlideshow.prototype.setupControls.call(this,args);
@@ -108,12 +117,8 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             totals.total  += score.total;
         });
 
-        var report = this.slides[ this.slides.length -1].el.find('#report');
-        if (report.length == 0){
-            report = this.slides[ this.slides.length -1].el.find(':first-child');
-            report = jQuery(report[0]).append('<aside id="#report"></aside>');
-        }
-        report.html('<p>'+
+        this.reportEl.append(
+            '<p>'+
             'You gave '+(totals.total)+' answers to '+
             totals.slides+' questions'+(totals.slides==1?'':'s')+':<br/>'+
             (totals.passed) +' '+ (totals.passed==1? 'was':'were') + ' correct,<br/>'+

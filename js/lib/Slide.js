@@ -63,13 +63,17 @@ define(['Base', 'jquery', 'jquery-transit'], function (Base, jQuery) {
     Slide.prototype.afterOut     = function () {};
 
     Slide.prototype.onAdd = function () {
-        console.info(this)
+
+        if ( this.el.length == 0){
+            console.warn('Slide.el cannot be an empty element.');
+            return;
+        }
+
         this.el.show();
 
         // Store the clone's attributes, including style:
         var wrapper = jQuery('<section class="slide"></section>');
         wrapper.attr('data-slide', this.index );
-
         for (var attributes = this.el.get(0).attributes,
                  i = 0;
                  i < attributes.length;

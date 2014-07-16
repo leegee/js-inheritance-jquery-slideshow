@@ -58,25 +58,25 @@ define(['Word2ImgSlide'], function (Word2ImgSlide) {
                     var userRe = new RegExp( el.attr( self.correctAttr ), 'ig' );
                     var val = el.val();
                     console.log(val, userRe)
-                    if (typeof val !== 'undefed'){
+                    if (typeof val !== 'undefed' && val.length > 0){
                         var m = val.match( userRe );
                         if (m !== null && m[0]){
                             score.passed ++;
                         } else {
                             score.failed ++;
                         }
-                    } else {
-                        score.failed ++;
+                        score.total ++;
                     }
                 } catch (e) {
                     console.error(e);
                 }
             } else {
+                score.total ++;
                 score.failed ++;
             }
-            score.total ++;
         });
 
+        console.log('Score: ', score)
         return score;
     };
 
