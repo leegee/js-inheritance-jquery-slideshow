@@ -12,7 +12,7 @@ define(['Slideshow', 'Ls'], function (Slideshow, Ls) {
 		 	next: function (imagePaths) {
                 console.group('Ls.next enter');
     			self.setWords2ImagePaths(imagePaths, properties);
-    			Slideshow.call(self, properties);
+    			self.parent.call(self, properties);
                 console.groupEnd('Ls.next leave');
             }
         });
@@ -20,7 +20,8 @@ define(['Slideshow', 'Ls'], function (Slideshow, Ls) {
 	};
 
 	Word2ImgSlideshow.prototype 						= Object.create( Slideshow.prototype );
-	Word2ImgSlideshow.prototype.constructor 			= Word2ImgSlideshow;
+    Word2ImgSlideshow.prototype.constructor             = Word2ImgSlideshow;
+	Word2ImgSlideshow.prototype.parent                  = Slideshow;
 	Word2ImgSlideshow.prototype.defaults 				= Slideshow.prototype.defaults;
 	Word2ImgSlideshow.prototype.defaults.Words2ImgPaths = [];
 

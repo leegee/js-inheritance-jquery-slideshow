@@ -5,15 +5,20 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	var QuizSlideshow = function (properties) {
 		console.group('QuizSlideshow.constructor enter ', arguments);
-		var self = this;
-		properties.Words2ImgPaths = [];
+        var self = this;
+        properties.Words2ImgPaths = [];
 
-		new Ls({
-			uri: properties.uri,
-		 	next: function (imagePaths) {
+        new Ls({
+            uri: properties.uri,
+            next: function (imagePaths) {
+                console.group('Ls.next enter');
                 self.setWords2ImagePaths(imagePaths, properties);
-    			Word2ImgSlideshow.call(self, properties);
-    		}
+                // This comes from Word2ImgSlideshow, but
+                // perhaps it ought to be:
+                Word2ImgSlideshow.prototype.parent.call(self,properties);
+                // Slideshow.call(self, properties);
+                console.groupEnd('Ls.next leave');
+            }
         });
 
         console.groupEnd('QuizSlideshow.constructor done ', this);
@@ -21,6 +26,7 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	QuizSlideshow.prototype 			= Object.create( Word2ImgSlideshow.prototype );
 	QuizSlideshow.prototype.constructor = QuizSlideshow;
+    QuizSlideshow.prototype.parent      = Word2ImgSlideshow;
 
     QuizSlideshow.prototype.keypressed = function (self, e) {
         var self = this;
@@ -43,15 +49,16 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
         var holder = jQuery('<div class="progress-bar"><span class="progress"></span></div>');
         this.el.append(holder);
         this._progressEl = jQuery('.progress-bar > *');
+        this.progress();
     };
 
-    QuizSlideshow.prototype.progress = function (nextIndex) {
-        var self = this;
-        nextIndex = nextIndex || this.currentIndex;
+    QuizSlideshow.prototype.progress = function () {
         if (typeof this._progressEl !== 'undefined'){
+            var self = this;
+            console.assert( typeof this.currentIndex === 'number' );
             this._progressEl.each( function () {
                 jQuery(this).css('width',
-                    (100 / (self.slides.length / (1+nextIndex) ))
+                    (100 / (self.slides.length / (1 + self.currentIndex) ))
                     + '%'
                  );
             });
@@ -77,8 +84,11 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
             this.controls.next.show();
         }
 
-        this.progress( nextIndex );
         return nextIndex;
+    };
+
+    QuizSlideshow.prototype.afterChange = function (nextIndex) {
+        this.progress();
     };
 
     QuizSlideshow.prototype.beforeShowFinal = function () {

@@ -5,12 +5,13 @@ function (QuizSlideshow,   QuizSlide,   Ls,   jQuery) {
 
 	var StorySlideshow = function (properties) {
 		console.group('StorySlideshow.constructor enter ', arguments);
-		QuizSlideshow.call(this, properties);
+		QuizSlideshow.parent.call(this, properties);
         console.groupEnd('StorySlideshow.constructor done ', this);
 	};
 
-	StorySlideshow.prototype 			= Object.create( QuizSlideshow.prototype );
+	StorySlideshow.prototype 			 = Object.create( QuizSlideshow.prototype );
 	StorySlideshow.prototype.constructor = StorySlideshow;
+    StorySlideshow.prototype.parent      = Word2ImgSlideshow;
 
     StorySlideshow.prototype.setupControls = function (args) {
         QuizSlideshow.prototype.setupControls.call(this,args);
