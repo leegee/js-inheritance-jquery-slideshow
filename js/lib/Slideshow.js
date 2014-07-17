@@ -111,6 +111,10 @@ define(['Base', 'jquery'], function (Base, jQuery) {
             console.log('Slideshow.change setting currentIndex to the end');
 		}
 
+        this.changeToSlideIndex( nextIndex );
+    };
+
+    Slideshow.prototype.changeToSlideIndex = function (nextIndex) {
         var possNextIndex = this.beforeChange(nextIndex);
         if (possNextIndex !== this.currentIndex){
             this.slides[ this.currentIndex ].out();
