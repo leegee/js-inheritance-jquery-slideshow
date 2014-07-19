@@ -40,8 +40,13 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 		});
         this.slides[ this.currentIndex ].in( this.direction );
         this.slides[ this.currentIndex ].show();
-        this.setupControls();
+        this.afterSlidesAdded();
 	};
+
+/** @return Void */
+    Slideshow.prototype.afterSlidesAdded = function () {
+        this.setupControls();
+    };
 
 /** @return An object of the prototype in `slideModule` */
     Slideshow.prototype.addSlide = function (properties) {
