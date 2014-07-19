@@ -105,28 +105,31 @@ define(['Base', 'jquery'], function (Base, jQuery) {
     @return Void
 */
 	Slideshow.prototype.change = function (nextIndex) {
-        console.log('Slideshow.change enter for slide #%d, nextIndex %d', this.currentIndex, nextIndex);
+        console.log('Slideshow.change enter for slide #%s, nextIndex [%s]', this.currentIndex, nextIndex);
 
 		if (nextIndex=='next'){
             this.direction = 1;
+            this.currentIndex + this.direction;
             console.log('Slideshow.change nextIndex +1, currentIndex now [%d]', this.currentIndex);
 		}
 		else if (nextIndex=='previous'){
 			this.direction = -1;
+            this.currentIndex + this.direction;
             console.log('Slideshow.change nextIndex -1, currentIndex now [%d]', this.nextIndex, this.currentIndex);
 		}
 		else {
-			this.direction = parseInt( nextIndex ) > this.currentIndex? 1 : -1;
+			this.currentIndex + nextIndex;
+            this.direction = nextIndex > this.currentIndex? 1 : -1;
+            console.log('Slideshow.change set direction to ', this.direction);
 		}
 
-        var nextIndex  = this.currentIndex + this.direction;
 		if (nextIndex >= this.slides.length){
-            console.log('Slideshow.change set currentIndex to 0');
+            console.log('Slideshow.change currentIndex wraps to the start');
 			nextIndex = 0;
 		}
 		else if (nextIndex < 0){
 			nextIndex = this.slides.length - 1;
-            console.log('Slideshow.change setting currentIndex to the end');
+            console.log('Slideshow.change currentIndex wraps to the end');
 		}
 
         this.changeToSlideIndex( nextIndex );
@@ -140,8 +143,10 @@ define(['Base', 'jquery'], function (Base, jQuery) {
     @return Void
 */
     Slideshow.prototype.changeToSlideIndex = function (nextIndex) {
+        console.log('Slideshow.changeToSlideIndex enter with nextIndex of ', nextIndex);
         var nextIndex = this.beforeChange(nextIndex);
         if (nextIndex !== this.currentIndex){
+            console.log('Slideshow.changeToSlideIndex nextIndex now', nextIndex);
             this.slides[ this.currentIndex ].out();
             this.slides[ this.currentIndex ].hide();
 
@@ -153,10 +158,11 @@ define(['Base', 'jquery'], function (Base, jQuery) {
                 this.beforeShowFinal();
             }
 
-    		console.log('Slideshow.change leave for slide #%d, direction', this.currentIndex, this.direction);
+    		console.log('Slideshow.changeToSlideIndex prepare for slide #%d, direction', this.currentIndex, this.direction);
     		this.slides[ this.currentIndex ].in( this.direction );
     		this.slides[ this.currentIndex ].show();
             this.afterChange();
+            console.log('Slideshow.changeToSlideIndex leave for slide #%d, direction', this.currentIndex, this.direction);
         }
 	};
 

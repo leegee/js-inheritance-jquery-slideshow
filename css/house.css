@@ -65,6 +65,9 @@
     background: purple;
     color: white;
 }
+.slideshow .slide a {
+    color: white;
+}
 
 .slideshow .slide > *:first-child {
     white-space: normal;
