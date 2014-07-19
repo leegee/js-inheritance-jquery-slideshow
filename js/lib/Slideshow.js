@@ -15,6 +15,7 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 
 	Slideshow.prototype = Object.create( Base.prototype	 );
 	Slideshow.prototype.constructor = Slideshow;
+    Slideshow.prototype.moduleName  = 'Slideshow';
 	Slideshow.prototype.defaults = {
 		el 				: null,	// HTML element that is the slideshow
 		direction		: 1,
