@@ -104,19 +104,19 @@ define(['Base', 'jquery'], function (Base, jQuery) {
 /** @param direction [int|string] - If an int, let it be the index of a slide. If a string, let it be 'previous' or 'next'.
     @return Void
 */
-	Slideshow.prototype.change = function (direction) {
-        console.log('Slideshow.change enter for slide #%d, direction %d', this.currentIndex, direction);
+	Slideshow.prototype.change = function (nextIndex) {
+        console.log('Slideshow.change enter for slide #%d, nextIndex %d', this.currentIndex, nextIndex);
 
-		if (direction=='next'){
+		if (nextIndex=='next'){
             this.direction = 1;
-            console.log('Slideshow.change direction +1, currentIndex now [%d]', this.currentIndex);
+            console.log('Slideshow.change nextIndex +1, currentIndex now [%d]', this.currentIndex);
 		}
-		else if (direction=='previous'){
+		else if (nextIndex=='previous'){
 			this.direction = -1;
-            console.log('Slideshow.change direction -1, currentIndex now [%d]', this.direction, this.currentIndex);
+            console.log('Slideshow.change nextIndex -1, currentIndex now [%d]', this.nextIndex, this.currentIndex);
 		}
 		else {
-			this.direction = parseInt( direction );
+			this.direction = parseInt( nextIndex ) > this.currentIndex? 1 : -1;
 		}
 
         var nextIndex  = this.currentIndex + this.direction;
@@ -140,12 +140,12 @@ define(['Base', 'jquery'], function (Base, jQuery) {
     @return Void
 */
     Slideshow.prototype.changeToSlideIndex = function (nextIndex) {
-        var possNextIndex = this.beforeChange(nextIndex);
-        if (possNextIndex !== this.currentIndex){
+        var nextIndex = this.beforeChange(nextIndex);
+        if (nextIndex !== this.currentIndex){
             this.slides[ this.currentIndex ].out();
             this.slides[ this.currentIndex ].hide();
 
-            this.currentIndex = possNextIndex;
+            this.currentIndex = nextIndex;
 
             if (this.currentIndex == 0){
                 this.beforeShowFirst();
