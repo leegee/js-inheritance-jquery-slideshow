@@ -1,17 +1,17 @@
 'use strict';
 
 (function() {
-    var method;
-    var noop = function () {};
-    var methods = [
+    var noop     = function () {};
+    var console  = (window.console = window.console || {});
+    var methods  = [
         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
         'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
         'timeStamp', 'trace', 'warn'
     ];
     var length = methods.length;
-    var console = (window.console = window.console || {});
 
+    var method;
     while (length--) {
         method = methods[length];
 
@@ -39,7 +39,7 @@ require.config({
         "StorySlideshow":     "lib/StorySlideshow",
         "StorySlide":         "lib/StorySlide"
     },
-    waitSeconds: 1
+    waitSeconds: 2
 });
 
 
