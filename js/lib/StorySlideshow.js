@@ -10,38 +10,63 @@ function (QuizSlideshow,   QuizSlide,   jQuery) {
 
 	var StorySlideshow = function (properties) {
 		console.group('StorySlideshow.constructor enter ', arguments);
-		QuizSlideshow.prototype.parent.call(this, properties);
+		this.anchors2slides = {};
+        QuizSlideshow.prototype.constructor.call(this, properties);
         console.groupEnd('StorySlideshow.constructor done ', this);
 	};
 
 	StorySlideshow.prototype 			 = Object.create( QuizSlideshow.prototype );
 	StorySlideshow.prototype.constructor = StorySlideshow;
-    StorySlideshow.prototype.parent      = QuizSlideshow;
+    StorySlideshow.prototype.moduleName  = 'StorySlidehosw';
 
-    StorySlideshow.prototype.setupControls = function () {};
+/** Capture clicks on internal hyperlinks
+    @return Void
+*/
+    StorySlideshow.prototype.afterSlidesAdded = function () {
+        var self = this;
 
-    // Stop wrapping ...because...?
-    // Does this need to exist?
+        this.slides.forEach( function (slide) {
+            var id = null; // id or name?
+            ['id', 'slide'].forEach( function (attr) {
+                if (slide.el.is("["+attr+"]")){
+                    id = slide.el.attr(attr);
+                    return; // ie break
+                }
+            });
+            if (id === null){
+                console.error('Slide has no id or name attribute: ', slide);
+                throw new TypeError('No id or name attribute on slide element');
+            }
+            self.anchors2slides[ id ] = slide;
+        });
+
+        jQuery( '#' + this.el.attr('id') +' a').on('click', function (e) {
+            e.preventDefault();
+            self.change(
+                self.url2index( this.href )
+            );
+        });
+    };
+
+/** @param url [string] Fully qualified URI or anchor fragment.
+    @returns An index to a slide.
+*/
+    StorySlideshow.prototype.url2index = function (url) {
+        var m = url.match(/#(.+)$/);
+        if (m === null){
+            throw new SyntaxError('Not a valid URL');
+        }
+        var index = this.anchors2slides[ m[1] ].index;
+        if (typeof index === 'undefined'){
+            console.error('Bad index: no such slide as %s from %s', m[1], url);
+            throw new TypeError('Bad index: no such slide');
+        }
+        return index;
+    };
+
     StorySlideshow.prototype.beforeChange = function (nextIndex) {
-        if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
-            nextIndex = 0;
-        } else if (this.currentIndex >= this.slides.length -1 && nextIndex <= 0){
-            nextIndex = this.slides.length -1;
-        }
-
-        if (nextIndex <= 0){
-            this.controls.previous.hide();
-            this.controls.next.show();
-        } else if (nextIndex >= this.slides.length -1){
-            this.controls.previous.show();
-            this.controls.next.hide();
-        } else {
-            this.controls.previous.show();
-            this.controls.next.show();
-        }
-
-        this.progress( nextIndex );
-        return nextIndex;
+        console.log('No-op call to beforeChange');
+        alert('x')
     };
 
 /** This subclass is as the superclass, but
@@ -60,9 +85,7 @@ function (QuizSlideshow,   QuizSlide,   jQuery) {
             );
         }
 
-        info( this.parent )
-        info( this.parent.prorotype )
-        this.parent.call(this, properties);
+        QuizSlideshow.prototype.call(this, nextIndex);
     };
 
 

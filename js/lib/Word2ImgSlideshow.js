@@ -3,17 +3,16 @@
 define(['Slideshow', 'Ls'], function (Slideshow, Ls) {
 	var Word2ImgSlideshow = function (properties) {
 		console.group('Word2ImgSlideshow.constructor enter ', arguments);
-
 		var self = this;
 		properties.Words2ImgPaths = [];
 
 		new Ls({
 			uri: properties.uri,
 		 	next: function (imagePaths) {
-                console.group('Ls.next enter');
-    			self.setWords2ImagePaths(imagePaths, properties);
-    			self.parent.call(self, properties);
-                console.groupEnd('Ls.next leave');
+                console.group('Word2ImgSlideshow Ls.next enter');
+                self.afterLs(imagePaths, properties);
+                Slideshow.prototype.constructor.call( self, properties );
+                console.groupEnd('Word2ImgSlideshow Ls.next leave');
             }
         });
         console.groupEnd('Word2ImgSlideshow.constructor done ', self);
@@ -21,9 +20,13 @@ define(['Slideshow', 'Ls'], function (Slideshow, Ls) {
 
 	Word2ImgSlideshow.prototype 						= Object.create( Slideshow.prototype );
     Word2ImgSlideshow.prototype.constructor             = Word2ImgSlideshow;
-	Word2ImgSlideshow.prototype.parent                  = Slideshow;
+    Word2ImgSlideshow.prototype.moduleName              = 'Word2ImgSlideshow';
 	Word2ImgSlideshow.prototype.defaults 				= Slideshow.prototype.defaults;
 	Word2ImgSlideshow.prototype.defaults.Words2ImgPaths = [];
+
+    Word2ImgSlideshow.prototype.afterLs = function (imagePaths, properties) {
+        this.setWords2ImagePaths(imagePaths, properties);
+    };
 
     Word2ImgSlideshow.prototype.setWords2ImagePaths = function (imagePaths, properties) {
         console.group('Word2ImgSlideshow.setWords2ImagePaths enter');

@@ -35,6 +35,26 @@ The code in this package uses several techniques that are common but
 by no means standard:
 
   * `Word2ImgSlideshow.prototype.moduleName` simply allows for easy identification in `console` dumps, and has no other significance.
-  * `Word2ImgSlideshow.prototype.parent` holds the prototype of the super- or parent class: it is merely a convenience for the subclass' reference: one could equally explicitly write the literal `Slideshow.prototype`, but it is long-winded, makes the model overly concrete for natural reading, and means there are more strings to update when changing the parent class.
   * `Word2ImgSlideshow.prototype.defaults` is a handy way of passing around default object properties.
+
+There is another widely adovcated convention that I have tried, but
+do not support, that of a `.parent` property holding a reference to
+the prototype of the super- or parent-class:
+
+    Word2ImgSlideshow.prototype.parent = Slideshow.prototype;
+
+It is said to be a convenience for the subclass' reference, saving one
+from explicitly writing the literal `Slideshow.prototype`, but less
+long-winded, more semantically valuable, and making less strings to update
+when changing the parent class. However:
+
+  # `A` isa `object`
+  # `B` isa `A`, `B.prototype.parent` isa `A`
+  # `B.prototype.contrcutor` calls `B.prototype.parent.constructor` (ie `A`)
+  # `C` isa `B`, `C.prototype.parent` isa `B`
+  # `C.prototype.contrcutor` calls `C.prototype.parent.constructor` (ie `B`)
+
+But because the calls to the constructors are made in the context of
+the caller — and not of an instance of the parent — the prototyped
+value of `B.parent` is replaced with that of `C.parent`.
 

@@ -1,30 +1,22 @@
 'use strict';
 
-define([ 'Word2ImgSlideshow', 'QuizSlide', 'Ls', 'jquery'],
-function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
+define([ 'Word2ImgSlideshow', 'QuizSlide', 'jquery'],
+function (Word2ImgSlideshow,   QuizSlide,   jQuery) {
 
 	var QuizSlideshow = function (properties) {
 		console.group('QuizSlideshow.constructor enter ', arguments);
-        var self = this;
-        properties.Words2ImgPaths = [];
-
-        new Ls({
-            uri: properties.uri,
-            next: function (imagePaths) {
-                console.group('Ls.next enter');
-                self.setWords2ImagePaths(imagePaths, properties);
-                Word2ImgSlideshow.prototype.parent.call(self,properties);
-                self.createReportEl();
-                console.groupEnd('Ls.next leave');
-            }
-        });
-
+        Word2ImgSlideshow.prototype.constructor.call( this, properties );
         console.groupEnd('QuizSlideshow.constructor done ', this);
 	};
 
+    QuizSlideshow.prototype.afterLs = function (imagePaths, properties) {
+        Word2ImgSlideshow.prototype.afterLs.call(this, imagePaths, properties);
+        this.createReportEl();
+    };
+
 	QuizSlideshow.prototype 			= Object.create( Word2ImgSlideshow.prototype );
 	QuizSlideshow.prototype.constructor = QuizSlideshow;
-    QuizSlideshow.prototype.parent      = Word2ImgSlideshow;
+    QuizSlideshow.prototype.moduleName  = 'QuizSlideshow';
 
     QuizSlideshow.prototype.keypressed = function (e) {
         var self = this;
