@@ -26,7 +26,7 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
 	QuizSlideshow.prototype.constructor = QuizSlideshow;
     QuizSlideshow.prototype.parent      = Word2ImgSlideshow;
 
-    QuizSlideshow.prototype.keypressed = function (self, e) {
+    QuizSlideshow.prototype.keypressed = function (e) {
         var self = this;
         // Next slide
         switch (e.keyCode){
@@ -74,7 +74,11 @@ function (Word2ImgSlideshow,   QuizSlide,   Ls,   jQuery) {
         }
     };
 
-    // Stop wrapping
+/** Behaves like the superclass except does not 'wrap'
+    the last and first slides.
+    @param nextIndex [int] The index of the slide about to be shown.
+    @return [int] The index of the slide to show next.
+*/
     QuizSlideshow.prototype.beforeChange = function (nextIndex) {
         if (this.currentIndex <= 0 && nextIndex >= this.slides.length -1 ) {
             nextIndex = 0;
