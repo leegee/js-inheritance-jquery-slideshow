@@ -17,7 +17,7 @@ defined in any object prototype — this is effectively inheritance.
 
     Slideshow = function () {}
 
-`Slideshow` is now a reference to a function.
+`Slideshow` is now a reference to a function (`typeof Slideshow === 'function'`).
 The function prototype allows inheritance thus:
 
     Word2ImgSlideshow.prototype = Object.create( Slideshow.prototype );
