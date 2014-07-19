@@ -48,11 +48,11 @@ from explicitly writing the literal `Slideshow.prototype`, but less
 long-winded, more semantically valuable, and making less strings to update
 when changing the parent class. However:
 
-  # `A` isa `object`
-  # `B` isa `A`, `B.prototype.parent` isa `A`
-  # `B.prototype.contrcutor` calls `B.prototype.parent.constructor` (ie `A`)
-  # `C` isa `B`, `C.prototype.parent` isa `B`
-  # `C.prototype.contrcutor` calls `C.prototype.parent.constructor` (ie `B`)
+  1. `A` isa `object`
+  1. `B` isa `A`, `B.prototype.parent` isa `A`
+  1. `B.prototype.contrcutor` calls `B.prototype.parent.constructor` (ie `A`)
+  1. `C` isa `B`, `C.prototype.parent` isa `B`
+  1. `C.prototype.contrcutor` calls `C.prototype.parent.constructor` (ie `B`)
 
 But because the calls to the constructors are made in the context of
 the caller — and not of an instance of the parent — the prototyped
