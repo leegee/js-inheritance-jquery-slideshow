@@ -108,12 +108,12 @@ define( [ 'Base', 'jquery' ], function ( Base, jQuery ) {
 		console.log( 'Slideshow.change enter for slide #%s, nextIndex [%s]', this.currentIndex, nextIndex );
 
 		if ( nextIndex == 'next' ) {
-			nextIndex = this.direction = 1;
-			this.currentIndex + this.direction;
+			this.direction = 1;
+			nextIndex = this.currentIndex + this.direction;
 			console.log( 'Slideshow.change nextIndex +1, currentIndex now [%d]', this.currentIndex );
 		} else if ( nextIndex == 'previous' ) {
-			nextIndex = this.direction = -1;
-			this.currentIndex + this.direction;
+			this.direction = -1;
+			nextIndex = this.currentIndex + this.direction;
 			console.log( 'Slideshow.change nextIndex -1, currentIndex now [%d]', this.nextIndex, this.currentIndex );
 		} else {
 			nextIndex = this.currentIndex + parseInt( nextIndex );
