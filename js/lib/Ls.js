@@ -15,13 +15,13 @@ define( [], function () {
 		var self = this;
 
 		if ( typeof properties !== 'string' && typeof properties !== 'object' ) {
-			throw new TypeError( 'Ls requires an object or string as sole parameter.' )
+			throw new TypeError( 'Ls this.requires an object or string as sole parameter.' )
 		}
-        if ( typeof properties === 'string' ) {
-            properties = {
-                uri: properties
-            };
-        }
+		if ( typeof properties === 'string' ) {
+			properties = {
+				uri: properties
+			};
+		}
 		this.re = properties.re || /^.+\.(png|jpg|gif)$/;
 		this.next = properties.next || function () {};
 		this.uris = [];
@@ -30,38 +30,40 @@ define( [], function () {
 		};
 		this.uri = properties.uri;
 		if ( !this.hasOwnProperty( 'uri' ) ) {
-			throw new TypeError( 'Ls requires a uri in its properties argument.' )
+			throw new TypeError( 'Ls this.requires a uri in its properties argument.' )
 		}
 
-		var req = new XMLHttpRequest();
-		req.open( 'GET', this.uri );
+		this.req = new XMLHttpRequest();
+		this.req.open( 'GET', this.uri );
+		this.req.onload = this.onload.bind( this );
+		this.req.onerror = this.onerror.bind( this );
 
-		req.onload = function () {
-			console.log( 'Ls.onload enter' );
-			if ( req.status == 200 ) {
-				var html = document.createElement( 'div' );
-				html.innerHTML = req.response;
-				var anchorNodeList = html.querySelectorAll( 'a[href]' );
-				for ( var i = 0; i < anchorNodeList.length; ++i ) {
-					var href = anchorNodeList[ i ].getAttribute( 'href' );
-					if ( href.match( self.re ) ) {
-						self.uris.push( self.uri + '/' + href );
-					}
-				}
-				console.log( 'Ls.onload leave, calling this.next with this.uris' );
-				return self.next( self.uris );
-			} else {
-				this.error( req.statusText );
-				return self;
-			}
-		};
-
-		req.onerror = function () {
-			this.error( req.statusText );
-		};
-
-		req.send();
+		this.req.send();
 		console.log( 'Ls new - leave with', this );
+	};
+
+	Ls.prototype.onload = function () {
+		console.log( 'Ls.onload enter ', this );
+		if ( this.req.status == 200 ) {
+			var html = document.createElement( 'div' );
+			html.innerHTML = this.req.response;
+			var anchorNodeList = html.querySelectorAll( 'a[href]' );
+			for ( var i = 0; i < anchorNodeList.length; ++i ) {
+				var href = anchorNodeList[ i ].getAttribute( 'href' );
+				if ( href.match( this.re ) ) {
+					this.uris.push( this.uri + '/' + href );
+				}
+			}
+			console.log( 'Ls.onload leave, calling this.next with this.uris' );
+			return this.next( this.uris );
+		} else {
+			this.error( this.req.statusText );
+			return this;
+		}
+	};
+
+	Ls.prototype.onerror = function () {
+		console.error( this.req.statusText );
 	};
 
 	return Ls;
