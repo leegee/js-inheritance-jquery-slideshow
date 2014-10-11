@@ -17,12 +17,11 @@ define( [], function () {
 		if ( typeof properties !== 'string' && typeof properties !== 'object' ) {
 			throw new TypeError( 'Ls requires an object or string as sole parameter.' )
 		}
-        // if ( typeof properties === 'string' ) {
-        //  properties = {
-        //      uri: properties
-        //  };
-        // }
-
+        if ( typeof properties === 'string' ) {
+            properties = {
+                uri: properties
+            };
+        }
 		this.re = properties.re || /^.+\.(png|jpg|gif)$/;
 		this.next = properties.next || function () {};
 		this.uris = [];
