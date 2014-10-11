@@ -22,16 +22,20 @@ define( [], function () {
 				uri: properties
 			};
 		}
-		this.re = properties.re || /^.+\.(png|jpg|gif)$/;
-		this.next = properties.next || function () {};
-		this.uris = [];
-		this.error = properties.error || function ( e ) {
-			throw new Error( 'Error getting ' + self.uri );
-		};
 		this.uri = properties.uri;
 		if ( !this.hasOwnProperty( 'uri' ) ) {
 			throw new TypeError( 'Ls this.requires a uri in its properties argument.' )
 		}
+
+		this.re = properties.re || /^.+\.(png|jpg|gif)$/;
+
+		this.uris = [];
+
+		this.next = properties.next || function () {};
+
+		this.error = properties.error || function ( e ) {
+			throw new Error( 'Error getting ' + self.uri );
+		};
 
 		this.req = new XMLHttpRequest();
 		this.req.open( 'GET', this.uri );
@@ -63,7 +67,7 @@ define( [], function () {
 	};
 
 	Ls.prototype.onerror = function () {
-		console.error( this.req.statusText );
+		this.error( this.req.statusText );
 	};
 
 	return Ls;
