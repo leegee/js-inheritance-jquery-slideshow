@@ -23,21 +23,11 @@
 }());
 
 require.config({
-    baseUrl: "js/",
+    baseUrl: "js/lib/",
     paths: {
-        "Modernizer":        "vendor/modernizr-2.6.2.min",
-        "jquery":            "vendor/jquery-1.10.2.min",
-        "jquery-transit":    "vendor/jquery.transit.min",
-        "Ls":                "lib/Ls",
-        "Base":              "lib/Base",
-        "Slideshow":         "lib/Slideshow",
-        "Slide":             "lib/Slide",
-        "Word2ImgSlideshow": "lib/Word2ImgSlideshow",
-        "Word2ImgSlide":     "lib/Word2ImgSlide",
-        "QuizSlideshow":     "lib/QuizSlideshow",
-        "QuizSlide":         "lib/QuizSlide",
-        "StorySlideshow":     "lib/StorySlideshow",
-        "StorySlide":         "lib/StorySlide"
+        "Modernizer":        "../vendor/modernizr-2.6.2.min",
+        "jquery":            "../vendor/jquery-1.10.2.min",
+        "jquery-transit":    "../vendor/jquery.transit.min"
     },
     waitSeconds: 2
 });
